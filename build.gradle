@@ -12,6 +12,11 @@ buildscript {
         lifecycle_version = "2.2.0"
         donut_progress_version = "1.2.0"
         glide_version = "4.11.0"
+        spek_version = "1.1.5"
+        spek_framework_version = "2.0.6"
+        junit_engine_version = "1.6.2"
+        junit_runner_version = "1.4.0"
+        mockito_version = "3.0.0"
     }
     repositories {
         google()
@@ -20,9 +25,7 @@ buildscript {
     dependencies {
         classpath "com.android.tools.build:gradle:4.0.1"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+        classpath "de.mannodermaus.gradle.plugins:android-junit5:1.5.2.0"
     }
 }
 
