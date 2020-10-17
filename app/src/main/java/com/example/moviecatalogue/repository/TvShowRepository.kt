@@ -1,14 +1,14 @@
 package com.example.moviecatalogue.repository
 
 import com.example.moviecatalogue.R
-import com.example.moviecatalogue.model.TvShow
+import com.example.moviecatalogue.model.Film
 
-class TvShowRepository {
+class TvShowRepository : ITvShowRepository {
 
-    fun getTvShowData(): ArrayList<TvShow> {
-        val tvShows = arrayListOf<TvShow>()
+    override fun getTvShowData(): ArrayList<Film> {
+        val tvShows = arrayListOf<Film>()
         tvShows.add(
-            TvShow(
+            Film(
                 R.drawable.poster_arrow,
                 "Arrow",
                 "2012",
@@ -19,7 +19,7 @@ class TvShowRepository {
             )
         )
         tvShows.add(
-            TvShow(
+            Film(
                 R.drawable.poster_doom_patrol,
                 "Doom Patrol",
                 "2019",
@@ -30,7 +30,7 @@ class TvShowRepository {
             )
         )
         tvShows.add(
-            TvShow(
+            Film(
                 R.drawable.poster_dragon_ball,
                 "Dragon Ball",
                 "1986",
@@ -41,7 +41,7 @@ class TvShowRepository {
             )
         )
         tvShows.add(
-            TvShow(
+            Film(
                 R.drawable.poster_fairytail,
                 "Fairy Tail",
                 "2009",
@@ -52,7 +52,7 @@ class TvShowRepository {
             )
         )
         tvShows.add(
-            TvShow(
+            Film(
                 R.drawable.poster_family_guy,
                 "Family Guy",
                 "1999",
@@ -63,7 +63,7 @@ class TvShowRepository {
             )
         )
         tvShows.add(
-            TvShow(
+            Film(
                 R.drawable.poster_flash,
                 "The Flash",
                 "1990",
@@ -74,7 +74,7 @@ class TvShowRepository {
             )
         )
         tvShows.add(
-            TvShow(
+            Film(
                 R.drawable.poster_god,
                 "God Friended Me",
                 "2018",
@@ -85,7 +85,7 @@ class TvShowRepository {
             )
         )
         tvShows.add(
-            TvShow(
+            Film(
                 R.drawable.poster_gotham,
                 "Gotham",
                 "2014",
@@ -96,7 +96,7 @@ class TvShowRepository {
             )
         )
         tvShows.add(
-            TvShow(
+            Film(
                 R.drawable.poster_grey_anatomy,
                 "Grey's Anatomy",
                 "2005",
@@ -107,7 +107,7 @@ class TvShowRepository {
             )
         )
         tvShows.add(
-            TvShow(
+            Film(
                 R.drawable.poster_hanna,
                 "Hanna",
                 "2019",

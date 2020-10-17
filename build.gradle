@@ -11,6 +11,7 @@ buildscript {
         koin_version = "2.1.6"
         lifecycle_version = "2.2.0"
         donut_progress_version = "1.2.0"
+        glide_version = "4.11.0"
     }
     repositories {
         google()

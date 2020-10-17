@@ -1,4 +1,4 @@
-package com.example.moviecatalogue.ui
+package com.example.moviecatalogue
 
 import android.app.Application
 import com.example.moviecatalogue.di.appComponent
