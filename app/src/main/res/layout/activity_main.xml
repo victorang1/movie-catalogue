@@ -20,6 +20,9 @@
             app:tabTextColor="@android:color/white"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:tabMode="fixed"
+            app:tabMaxWidth="0dp"
+            app:tabGravity="fill"
             />
 
         <androidx.viewpager.widget.ViewPager

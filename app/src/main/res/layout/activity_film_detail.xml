@@ -25,6 +25,8 @@
                 android:id="@+id/iv_thumbnail"
                 android:layout_width="@dimen/large_img_width"
                 android:layout_height="@dimen/large_img_height"
+                android:scaleType="fitXY"
+                android:adjustViewBounds="true"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 android:contentDescription="@string/text_movie_thumbnail" />
@@ -33,7 +35,7 @@
                 android:id="@+id/tv_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginStart="@dimen/dimen_12dp"
                 android:layout_marginEnd="@dimen/dimen_8dp"
                 android:textColor="@color/colorAccent"
                 android:textStyle="bold"
@@ -51,7 +53,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_8dp"
-                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginStart="@dimen/dimen_12dp"
                 android:layout_marginEnd="@dimen/dimen_8dp"
                 android:textColor="@color/colorAccent"
                 android:textSize="@dimen/text_20sp"
@@ -68,7 +70,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_4dp"
-                android:layout_marginEnd="@dimen/dimen_8dp"
                 android:textColor="@color/colorPrimary"
                 android:textSize="@dimen/text_20sp"
                 android:fontFamily="serif"
@@ -98,7 +99,7 @@
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintTop_toBottomOf="@id/barrier"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/tv_duration"
+                app:layout_constraintRight_toRightOf="parent"
                 />
 
             <com.bikomobile.donutprogress.DonutProgress
@@ -106,6 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_4dp"
+                android:layout_marginStart="@dimen/dimen_12dp"
                 app:donut_suffix="%"
                 app:donut_finished_stroke_width="@dimen/dimen_8dp"
                 app:donut_unfinished_stroke_width="@dimen/dimen_8dp"
@@ -124,8 +126,8 @@
                 android:textSize="@dimen/text_24sp"
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
-                app:layout_constraintLeft_toRightOf="@id/tv_category_text"
-                app:layout_constraintTop_toBottomOf="@id/barrier"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_category"
                 app:layout_constraintRight_toRightOf="parent"
                 />
 
@@ -144,14 +146,6 @@
                 app:layout_constraintRight_toRightOf="parent"
                 />
 
-            <androidx.constraintlayout.widget.Barrier
-                android:id="@+id/content_barrier"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:barrierDirection="bottom"
-                app:constraint_referenced_ids="tv_category, tv_duration_display"
-                />
-
             <TextView
                 android:id="@+id/tv_overview"
                 android:layout_width="0dp"
@@ -162,7 +156,7 @@
                 android:textStyle="bold"
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/content_barrier"
+                app:layout_constraintTop_toBottomOf="@id/tv_duration_display"
                 />
 
             <TextView
