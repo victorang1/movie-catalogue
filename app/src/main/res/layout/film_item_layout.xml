@@ -29,12 +29,12 @@
 
             <ImageView
                 android:id="@+id/iv_thumbnail"
-                android:layout_width="@dimen/default_img_sm_size"
-                android:layout_height="@dimen/default_img_sm_size"
+                android:layout_width="@dimen/default_img_width"
+                android:layout_height="@dimen/default_img_height"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                />
+                android:contentDescription="@string/text_movie_thumbnail" />
 
             <TextView
                 android:id="@+id/tv_title"
@@ -51,7 +51,6 @@
                 app:layout_constraintLeft_toRightOf="@id/iv_thumbnail"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/icon_year"
                 />
 
             <ImageView
@@ -63,8 +62,7 @@
                 android:src="@drawable/ic_calendar"
                 app:layout_constraintLeft_toRightOf="@id/iv_thumbnail"
                 app:layout_constraintTop_toBottomOf="@id/tv_title"
-                app:layout_constraintBottom_toTopOf="@id/tv_category"
-                />
+                android:contentDescription="@string/text_year" />
 
             <TextView
                 android:id="@+id/tv_year"
@@ -94,10 +92,11 @@
                 android:textSize="@dimen/text_18sp"
                 android:fontFamily="sans-serif"
                 android:text="@{film.category}"
-                tools:text="Drama"
+                tools:text="Drama adfasdfasdf asdfasfasdfasfd"
+                app:drawableStartCompat="@drawable/ic_info"
+                android:drawablePadding="@dimen/dimen_8dp"
                 app:layout_constraintLeft_toRightOf="@id/iv_thumbnail"
                 app:layout_constraintTop_toBottomOf="@id/icon_year"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 />
 

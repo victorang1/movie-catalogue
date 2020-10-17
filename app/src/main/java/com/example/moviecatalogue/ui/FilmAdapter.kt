@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import com.example.moviecatalogue.R
 import com.example.moviecatalogue.databinding.FilmItemLayoutBinding
 import com.example.moviecatalogue.model.Film
 
@@ -18,7 +20,7 @@ class FilmAdapter(val mCallback: FilmClickCallback, private val filmList: ArrayL
 
     override fun onBindViewHolder(holder: FilmViewHolder, position: Int) {
         val filmData = filmList[position]
-        holder.bind(filmData)
+        holder.bind(filmData, position)
     }
 
     override fun getItemCount(): Int = filmList.count()
@@ -32,12 +34,13 @@ class FilmAdapter(val mCallback: FilmClickCallback, private val filmList: ArrayL
     inner class FilmViewHolder(private val itemBinding: FilmItemLayoutBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
-        fun bind(filmData: Film) {
+        fun bind(filmData: Film, position: Int) {
             with(itemBinding) {
                 film = filmData
-                cvFilm.setOnClickListener { mCallback.onItemClick(filmData) }
+                cvFilm.setOnClickListener { mCallback.onItemClick(position) }
                 Glide.with(root)
-                    .load(film.image)
+                    .load(filmData.image)
+                    .apply(RequestOptions.errorOf(R.drawable.ic_error_white))
                     .into(ivThumbnail)
             }
         }

@@ -4,4 +4,7 @@
     <color name="colorPrimaryDark">#1a1a2e</color>
     <color name="colorAccent">#0f3460</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorProgressGreen">#21d07b</color>
+    <color name="colorProgressYellow">#d2d531</color>
+    <color name="colorProgressRed">#FF0000</color>
 </resources>

@@ -13,5 +13,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        val homePagerAdapter = HomePagerAdapter(this, supportFragmentManager)
+        mBinding.viewPager.adapter = homePagerAdapter
+        mBinding.tabs.setupWithViewPager(mBinding.viewPager)
     }
 }

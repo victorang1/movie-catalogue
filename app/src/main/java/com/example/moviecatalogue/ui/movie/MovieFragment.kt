@@ -1,5 +1,6 @@
 package com.example.moviecatalogue.ui.movie
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,10 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.moviecatalogue.R
 import com.example.moviecatalogue.databinding.FragmentMovieBinding
-import com.example.moviecatalogue.model.Film
 import com.example.moviecatalogue.ui.FilmAdapter
 import com.example.moviecatalogue.ui.FilmClickCallback
+import com.example.moviecatalogue.ui.detail.FilmDetailActivity
+import com.example.moviecatalogue.ui.detail.FilmDetailActivity.Companion.FILM_ID
+import com.example.moviecatalogue.ui.detail.FilmDetailActivity.Companion.TYPE
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MovieFragment : Fragment(), FilmClickCallback {
@@ -38,8 +42,12 @@ class MovieFragment : Fragment(), FilmClickCallback {
         loadMovieData()
     }
 
-    override fun onItemClick(film: Film) {
-        TODO("Not yet implemented")
+    override fun onItemClick(position: Int) {
+        val intent = Intent(requireContext(), FilmDetailActivity::class.java).apply {
+            putExtra(FILM_ID, position)
+            putExtra(TYPE, R.string.text_type_movie)
+        }
+        startActivity(intent)
     }
 
     private fun initializeAdapter() {
