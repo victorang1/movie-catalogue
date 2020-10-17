@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.moviecatalogue.R
@@ -32,9 +31,7 @@ class FilmDetailActivity : AppCompatActivity() {
         val selectedFilmId = intent.getIntExtra(FILM_ID, -1)
         val selectedType = intent.getIntExtra(TYPE, -1)
         if (selectedFilmId != -1 && selectedType != -1) {
-            mViewModel.loadDataById(selectedFilmId, selectedType).observe(this, Observer { film ->
-                renderSelectedFilm(film)
-            })
+            renderSelectedFilm(mViewModel.loadDataById(selectedFilmId, selectedType))
         } else finish()
     }
 

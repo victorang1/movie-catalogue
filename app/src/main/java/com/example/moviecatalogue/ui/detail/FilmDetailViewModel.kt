@@ -1,7 +1,5 @@
 package com.example.moviecatalogue.ui.detail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moviecatalogue.R
 import com.example.moviecatalogue.model.Film
@@ -13,12 +11,8 @@ class FilmDetailViewModel(
     private val tvShowRepository: ITvShowRepository
 ) : ViewModel() {
 
-    fun loadDataById(position: Int, type: Int): LiveData<Film> {
-        val film = MutableLiveData<Film>()
-        if (type == R.string.text_type_movie) {
-            film.value = movieRepository.getMovieData()[position]
-        }
-        else film.value = tvShowRepository.getTvShowData()[position]
-        return film
+    fun loadDataById(position: Int, type: Int): Film {
+        return if (type == R.string.text_type_movie) movieRepository.getMovieData()[position]
+        else tvShowRepository.getTvShowData()[position]
     }
 }

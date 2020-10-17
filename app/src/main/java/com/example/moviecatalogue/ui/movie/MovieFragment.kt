@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecatalogue.R
 import com.example.moviecatalogue.databinding.FragmentMovieBinding
@@ -39,7 +38,7 @@ class MovieFragment : Fragment(), FilmClickCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeAdapter()
-        loadMovieData()
+        mAdapter.setDataSet(mViewModel.getMovieData())
     }
 
     override fun onItemClick(position: Int) {
@@ -56,11 +55,5 @@ class MovieFragment : Fragment(), FilmClickCallback {
             this.layoutManager = LinearLayoutManager(activity)
             this.adapter = mAdapter
         }
-    }
-
-    private fun loadMovieData() {
-        mViewModel.getMovieData().observe(requireActivity(), Observer { movies ->
-            mAdapter.setDataSet(movies)
-        })
     }
 }
