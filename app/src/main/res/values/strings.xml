@@ -11,4 +11,7 @@
     <string name="text_type_tv_show">TvShow</string>
     <string name="text_no_data">No data</string>
     <string name="text_error">Something went wrong please try again</string>
+    <string name="text_logo">Application Logo</string>
+    <string name="text_movie">Movie</string>
+    <string name="text_catalogue">Catalogue</string>
 </resources>

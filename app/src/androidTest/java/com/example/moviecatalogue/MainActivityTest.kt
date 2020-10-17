@@ -67,6 +67,7 @@ class MainActivityTest {
 
     @Test
     fun loadDetailShows() {
+        onView(withText("Tv Shows")).perform(ViewActions.click())
         onView(withId(R.id.rv_shows)).perform(
             RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                 0,

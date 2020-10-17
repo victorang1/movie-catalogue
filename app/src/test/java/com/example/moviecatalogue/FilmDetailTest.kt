@@ -3,7 +3,6 @@ package com.example.moviecatalogue
 import com.example.moviecatalogue.repository.MovieRepository
 import com.example.moviecatalogue.repository.TvShowRepository
 import com.example.moviecatalogue.ui.detail.FilmDetailViewModel
-import com.example.moviecatalogue.ui.movie.MovieViewModel
 import org.jetbrains.spek.api.Spek
 import org.junit.Assert
 import org.junit.platform.runner.JUnitPlatform
