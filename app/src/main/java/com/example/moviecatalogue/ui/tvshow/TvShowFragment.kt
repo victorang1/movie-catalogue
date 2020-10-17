@@ -15,6 +15,7 @@ import com.example.moviecatalogue.ui.detail.FilmDetailActivity
 import com.example.moviecatalogue.ui.detail.FilmDetailActivity.Companion.FILM_ID
 import com.example.moviecatalogue.ui.detail.FilmDetailActivity.Companion.TYPE
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Exception
 
 class TvShowFragment : Fragment(), FilmClickCallback {
 
@@ -38,7 +39,7 @@ class TvShowFragment : Fragment(), FilmClickCallback {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeAdapter()
-        mAdapter.setDataSet(mViewModel.getTvShowData())
+        loadData()
     }
 
     override fun onItemClick(position: Int) {
@@ -51,9 +52,23 @@ class TvShowFragment : Fragment(), FilmClickCallback {
 
     private fun initializeAdapter() {
         mAdapter = FilmAdapter(this, arrayListOf())
-        with(mBinding.recyclerView) {
+        with(mBinding.rvShows) {
             this.layoutManager = LinearLayoutManager(activity)
             this.adapter = mAdapter
+        }
+    }
+
+    private fun loadData() {
+        try {
+            val movies = mViewModel.getTvShowData()
+            mBinding.isDataExists = movies.isNotEmpty()
+            if (movies.isNotEmpty())
+                mAdapter.setDataSet(movies)
+            else
+                mBinding.tvMessage.text = resources.getString(R.string.text_no_data)
+        } catch (e: Exception) {
+            mBinding.isDataExists = false
+            mBinding.tvMessage.text = resources.getString(R.string.text_error)
         }
     }
 }

@@ -17,6 +17,7 @@ buildscript {
         junit_engine_version = "1.6.2"
         junit_runner_version = "1.4.0"
         mockito_version = "3.0.0"
+        androidXTestVersion = "1.2.0"
     }
     repositories {
         google()

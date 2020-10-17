@@ -9,4 +9,6 @@
     <string name="text_overview">Overview</string>
     <string name="text_type_movie">Movie</string>
     <string name="text_type_tv_show">TvShow</string>
+    <string name="text_no_data">No data</string>
+    <string name="text_error">Something went wrong please try again</string>
 </resources>
