@@ -2,27 +2,46 @@ package com.example.moviecatalogue
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.rule.ActivityTestRule
+import com.example.data.FakeMovieRepository
+import com.example.data.FakeTvRepository
 import com.example.moviecatalogue.repository.MovieRepository
 import com.example.moviecatalogue.repository.TvShowRepository
+import com.example.moviecatalogue.service.movie.MovieServiceImpl
+import com.example.moviecatalogue.service.tv.TvServiceImpl
 import com.example.moviecatalogue.ui.home.MainActivity
+import com.example.moviecatalogue.utils.EspressoIdlingResource
 import org.hamcrest.Matchers.not
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
 class MainActivityTest {
 
-    private val movieRepository = MovieRepository()
-    private val tvShowsRepository = TvShowRepository()
-    private val dummyMovies = movieRepository.getMovieData()
-    private val dummyTvShows = tvShowsRepository.getTvShowData()
+    private val movieRepository = FakeMovieRepository()
+    private val tvRepository = FakeTvRepository()
+
+    private val dummyMovies = movieRepository.getMovieDummyData()
+    private val dummyTvShows = tvRepository.getTvDummyData()
 
     @get:Rule
     var activityRule = ActivityTestRule(MainActivity::class.java)
+
+    @Before
+    fun setUp() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.idlingResource)
+    }
+
+    @After
+    fun clear() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.idlingResource)
+    }
 
     @Test
     fun loadMovies() {
@@ -40,18 +59,24 @@ class MainActivityTest {
                 ViewActions.click()
             )
         )
-        onView(withId(R.id.tv_title))
+        onView(withId(R.id.iv_thumbnail))
             .check(ViewAssertions.matches(isDisplayed()))
         onView(withId(R.id.tv_title))
-            .check(ViewAssertions.matches(withText(dummyMovies[0].title)))
-        onView(withId(R.id.tv_year))
             .check(ViewAssertions.matches(isDisplayed()))
         onView(withId(R.id.tv_year))
-            .check(ViewAssertions.matches(withText(dummyMovies[0].year)))
-        onView(withId(R.id.tv_category))
+            .check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.tv_popularity))
+            .check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.tv_votes))
+            .check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.tv_category_text))
             .check(ViewAssertions.matches(isDisplayed()))
         onView(withId(R.id.tv_category))
-            .check(ViewAssertions.matches(withText(dummyMovies[0].category)))
+            .check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.tv_overview))
+            .check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.tv_overview_display))
+            .check(ViewAssertions.matches(isDisplayed()))
     }
 
     @Test
@@ -74,18 +99,24 @@ class MainActivityTest {
                 ViewActions.click()
             )
         )
-        onView(withId(R.id.tv_title))
+        onView(withId(R.id.iv_thumbnail))
             .check(ViewAssertions.matches(isDisplayed()))
         onView(withId(R.id.tv_title))
-            .check(ViewAssertions.matches(withText(dummyTvShows[0].title)))
-        onView(withId(R.id.tv_year))
             .check(ViewAssertions.matches(isDisplayed()))
         onView(withId(R.id.tv_year))
-            .check(ViewAssertions.matches(withText(dummyTvShows[0].year)))
-        onView(withId(R.id.tv_category))
+            .check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.tv_popularity))
+            .check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.tv_votes))
+            .check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.tv_category_text))
             .check(ViewAssertions.matches(isDisplayed()))
         onView(withId(R.id.tv_category))
-            .check(ViewAssertions.matches(withText(dummyTvShows[0].category)))
+            .check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.tv_overview))
+            .check(ViewAssertions.matches(isDisplayed()))
+        onView(withId(R.id.tv_overview_display))
+            .check(ViewAssertions.matches(isDisplayed()))
     }
 
     @Test

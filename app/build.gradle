@@ -81,7 +81,10 @@ dependencies {
 
     testImplementation group: 'org.mockito', name: 'mockito-core', version: "$mockito_version"
     testImplementation "org.mockito:mockito-inline:$mockito_version"
+    testImplementation "org.mockito:mockito-core:$mockito_version"
 
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    implementation "androidx.test.espresso:espresso-idling-resource:$idleResourceVersion"
 }
