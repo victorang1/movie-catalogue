@@ -8,7 +8,7 @@ import com.example.moviecatalogue.service.datamodel.tv.PopularTvItemResponse
 import com.example.moviecatalogue.service.datamodel.tv.PopularTvResponse
 import com.example.moviecatalogue.service.datamodel.tv.TvDetailResponse
 
-object FakeTvRepository {
+internal object FakeTvRepository {
 
     fun getTvDummyData(): ArrayList<Film> {
         val movies = arrayListOf<Film>()

@@ -8,8 +8,6 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.rule.ActivityTestRule
-import com.example.data.FakeMovieRepository
-import com.example.data.FakeTvRepository
 import com.example.moviecatalogue.ui.home.MainActivity
 import com.example.moviecatalogue.utils.EspressoIdlingResource
 import org.hamcrest.Matchers.not
@@ -20,8 +18,8 @@ import org.junit.Test
 
 class MainActivityTest {
 
-    private val dummyMovies = FakeMovieRepository.getMovieDummyData()
-    private val dummyTvShows = FakeTvRepository.getTvDummyData()
+    private var dummyMovies = DummyData.getMovieDummyData()
+    private val dummyTvShows = DummyData.getTvDummyData()
 
     @get:Rule
     var activityRule = ActivityTestRule(MainActivity::class.java)
@@ -117,6 +115,15 @@ class MainActivityTest {
         val recyclerView = activityRule.activity.findViewById<RecyclerView>(R.id.rv_movies)
         if (recyclerView.adapter?.itemCount == 0) {
             onView(withId(R.id.rv_movies)).check(ViewAssertions.matches(not(isDisplayed())))
+            onView(withId(R.id.tv_message)).check(ViewAssertions.matches(isDisplayed()))
+        }
+    }
+
+    @Test
+    fun loadNoDataTvs() {
+        val recyclerView = activityRule.activity.findViewById<RecyclerView>(R.id.rv_shows)
+        if (recyclerView.adapter?.itemCount == 0) {
+            onView(withId(R.id.rv_shows)).check(ViewAssertions.matches(not(isDisplayed())))
             onView(withId(R.id.tv_message)).check(ViewAssertions.matches(isDisplayed()))
         }
     }

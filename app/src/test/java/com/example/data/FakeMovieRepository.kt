@@ -8,7 +8,7 @@ import com.example.moviecatalogue.service.datamodel.movie.MovieDetailResponse
 import com.example.moviecatalogue.service.datamodel.movie.PopularMovieItemResponse
 import com.example.moviecatalogue.service.datamodel.movie.PopularMovieResponse
 
-object FakeMovieRepository {
+internal object FakeMovieRepository {
 
     fun getMovieDummyData(): ArrayList<Film> {
         val movies = arrayListOf<Film>()
