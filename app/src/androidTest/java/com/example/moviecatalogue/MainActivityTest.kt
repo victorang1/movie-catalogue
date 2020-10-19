@@ -10,10 +10,6 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.rule.ActivityTestRule
 import com.example.data.FakeMovieRepository
 import com.example.data.FakeTvRepository
-import com.example.moviecatalogue.repository.MovieRepository
-import com.example.moviecatalogue.repository.TvShowRepository
-import com.example.moviecatalogue.service.movie.MovieServiceImpl
-import com.example.moviecatalogue.service.tv.TvServiceImpl
 import com.example.moviecatalogue.ui.home.MainActivity
 import com.example.moviecatalogue.utils.EspressoIdlingResource
 import org.hamcrest.Matchers.not
@@ -24,11 +20,8 @@ import org.junit.Test
 
 class MainActivityTest {
 
-    private val movieRepository = FakeMovieRepository()
-    private val tvRepository = FakeTvRepository()
-
-    private val dummyMovies = movieRepository.getMovieDummyData()
-    private val dummyTvShows = tvRepository.getTvDummyData()
+    private val dummyMovies = FakeMovieRepository.getMovieDummyData()
+    private val dummyTvShows = FakeTvRepository.getTvDummyData()
 
     @get:Rule
     var activityRule = ActivityTestRule(MainActivity::class.java)
