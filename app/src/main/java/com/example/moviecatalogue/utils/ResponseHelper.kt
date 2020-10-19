@@ -2,7 +2,7 @@ package com.example.moviecatalogue.utils
 
 import com.example.moviecatalogue.model.Film
 import com.example.moviecatalogue.service.ApiConfig.BASE_IMG_PATH
-import com.example.moviecatalogue.service.datamodel.PopularMovieResponse
+import com.example.moviecatalogue.service.datamodel.movie.PopularMovieResponse
 
 object ResponseHelper {
 

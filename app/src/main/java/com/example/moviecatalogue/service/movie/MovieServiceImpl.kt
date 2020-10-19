@@ -3,8 +3,8 @@ package com.example.moviecatalogue.service.movie
 import android.content.res.Resources
 import com.example.moviecatalogue.R
 import com.example.moviecatalogue.service.ApiHandler
-import com.example.moviecatalogue.service.datamodel.MovieDetailResponse
-import com.example.moviecatalogue.service.datamodel.PopularMovieResponse
+import com.example.moviecatalogue.service.datamodel.movie.MovieDetailResponse
+import com.example.moviecatalogue.service.datamodel.movie.PopularMovieResponse
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import retrofit2.Call

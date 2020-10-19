@@ -5,8 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.moviecatalogue.BuildConfig.API_KEY
 import com.example.moviecatalogue.model.Film
 import com.example.moviecatalogue.service.ApiHandler
-import com.example.moviecatalogue.service.datamodel.MovieDetailResponse
-import com.example.moviecatalogue.service.datamodel.PopularMovieResponse
+import com.example.moviecatalogue.service.datamodel.movie.PopularMovieResponse
 import com.example.moviecatalogue.service.movie.MovieService
 import com.example.moviecatalogue.utils.ResponseHelper
 

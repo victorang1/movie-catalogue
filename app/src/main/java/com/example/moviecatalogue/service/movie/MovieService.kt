@@ -1,8 +1,8 @@
 package com.example.moviecatalogue.service.movie
 
 import com.example.moviecatalogue.service.ApiHandler
-import com.example.moviecatalogue.service.datamodel.MovieDetailResponse
-import com.example.moviecatalogue.service.datamodel.PopularMovieResponse
+import com.example.moviecatalogue.service.datamodel.movie.MovieDetailResponse
+import com.example.moviecatalogue.service.datamodel.movie.PopularMovieResponse
 
 interface MovieService {
 
