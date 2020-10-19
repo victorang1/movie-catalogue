@@ -1,7 +1,7 @@
 package com.example.moviecatalogue.service.tv
 
-import com.example.moviecatalogue.service.datamodel.movie.MovieDetailResponse
 import com.example.moviecatalogue.service.datamodel.tv.PopularTvResponse
+import com.example.moviecatalogue.service.datamodel.tv.TvDetailResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -14,7 +14,7 @@ interface TvEndpoint {
 
     @GET("tv/{tv_id}")
     fun getTvDetails(
-        @Query("api_key") apiKey: String,
-        @Path("tv_id") tvId: Int
-    ): Call<MovieDetailResponse>
+        @Path("tv_id") tvId: Int,
+        @Query("api_key") apiKey: String
+    ): Call<TvDetailResponse>
 }

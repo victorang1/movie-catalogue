@@ -2,6 +2,7 @@ package com.example.moviecatalogue.service.tv
 
 import com.example.moviecatalogue.service.ApiHandler
 import com.example.moviecatalogue.service.datamodel.tv.PopularTvResponse
+import com.example.moviecatalogue.service.datamodel.tv.TvDetailResponse
 
 interface TvService {
 
@@ -11,6 +12,6 @@ interface TvService {
     )
 
     fun getTvDetails(
-        apiKey: String, tvId: Int, apiHandler: ApiHandler<PopularTvResponse>
+        apiKey: String, tvId: Int, apiHandler: ApiHandler<TvDetailResponse>
     )
 }

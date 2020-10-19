@@ -7,28 +7,30 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Film(
+    val id: Int,
     val image: String? = "",
     val title: String? = "",
     val popularity: Double? = 0.0,
     val voteCount: Long? = 0,
     val releaseDate: String? = "",
     val category: String? = "",
-    val duration: String? = "",
     val overview: String? = "",
 ) : BaseObservable(), Parcelable {
 
     constructor(
+        id: Int,
         image: String,
         title: String,
         popularity: Double,
         voteCount: Long,
         releaseDate: String?
     ) : this(
+        id,
         image,
         title,
         popularity,
         voteCount,
-        releaseDate, "", "", ""
+        releaseDate, "", ""
     )
 
     @Bindable

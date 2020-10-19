@@ -46,7 +46,7 @@ class MovieServiceImpl(private val movieEndpoint: MovieEndpoint) : MovieService,
         movieId: Int,
         apiHandler: ApiHandler<MovieDetailResponse>
     ) {
-        movieEndpoint.getMovieDetails(apiKey, movieId).enqueue(object: Callback<MovieDetailResponse> {
+        movieEndpoint.getMovieDetails(movieId, apiKey).enqueue(object: Callback<MovieDetailResponse> {
 
             override fun onResponse(
                 call: Call<MovieDetailResponse>,

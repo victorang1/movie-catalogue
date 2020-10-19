@@ -5,4 +5,5 @@ import com.example.moviecatalogue.model.Film
 
 interface ITvShowRepository {
     fun getTvShowData(): LiveData<List<Film>>
+    fun getTvDetails(movieId: Int): LiveData<Film>
 }

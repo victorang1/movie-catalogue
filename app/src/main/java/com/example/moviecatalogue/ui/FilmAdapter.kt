@@ -20,7 +20,7 @@ class FilmAdapter(val mCallback: FilmClickCallback, private val filmList: ArrayL
 
     override fun onBindViewHolder(holder: FilmViewHolder, position: Int) {
         val filmData = filmList[position]
-        holder.bind(filmData, position)
+        holder.bind(filmData)
     }
 
     override fun getItemCount(): Int = filmList.count()
@@ -34,10 +34,10 @@ class FilmAdapter(val mCallback: FilmClickCallback, private val filmList: ArrayL
     inner class FilmViewHolder(private val itemBinding: FilmItemLayoutBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
 
-        fun bind(filmData: Film, position: Int) {
+        fun bind(filmData: Film) {
             with(itemBinding) {
                 film = filmData
-                cvFilm.setOnClickListener { mCallback.onItemClick(position) }
+                cvFilm.setOnClickListener { mCallback.onItemClick(filmData.id) }
                 Glide.with(root)
                     .load(filmData.image)
                     .apply(RequestOptions.errorOf(R.drawable.ic_error_white))

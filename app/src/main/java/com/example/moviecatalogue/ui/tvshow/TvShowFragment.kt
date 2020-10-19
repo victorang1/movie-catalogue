@@ -34,7 +34,6 @@ class TvShowFragment : Fragment(), FilmClickCallback {
         savedInstanceState: Bundle?
     ): View? {
         mBinding = FragmentTvShowBinding.inflate(inflater, container, false)
-        mBinding.tvMessage.visibility = View.GONE
         return mBinding.root
     }
 
@@ -45,9 +44,9 @@ class TvShowFragment : Fragment(), FilmClickCallback {
         loadData()
     }
 
-    override fun onItemClick(position: Int) {
+    override fun onItemClick(id: Int) {
         val intent = Intent(requireContext(), FilmDetailActivity::class.java).apply {
-            putExtra(FILM_ID, position)
+            putExtra(FILM_ID, id)
             putExtra(TYPE, R.string.text_type_tv_show)
         }
         startActivity(intent)
@@ -70,11 +69,12 @@ class TvShowFragment : Fragment(), FilmClickCallback {
     private fun loadData() {
         mViewModel.setLoading(true)
         try {
-            mViewModel.getTvShowData().observe(viewLifecycleOwner, Observer { movies ->
+            mViewModel.getTvShowData().observe(viewLifecycleOwner, Observer { tvShows ->
                 mViewModel.setLoading(false)
-                if (movies.isNotEmpty())
-                    mAdapter.setDataSet(movies)
-                else{
+                if (tvShows.isNotEmpty()) {
+                    mAdapter.setDataSet(tvShows)
+                    mBinding.tvMessage.visibility = View.GONE
+                } else {
                     mBinding.tvMessage.visibility = View.VISIBLE
                     mBinding.tvMessage.text = resources.getString(R.string.text_no_data)
                 }

@@ -3,6 +3,7 @@ package com.example.moviecatalogue.service.datamodel.tv
 import com.google.gson.annotations.SerializedName
 
 data class PopularTvItemResponse(
+    val id: Int = 0,
     @SerializedName("poster_path")
     val posterPath: String? = "",
     @SerializedName("name")

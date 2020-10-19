@@ -9,6 +9,7 @@ import com.example.moviecatalogue.repository.ITvShowRepository
 class TvShowViewModel(private val tvShowRepository: ITvShowRepository) : ViewModel() {
 
     private val isLoading = MutableLiveData<Boolean>()
+    private val movies = MutableLiveData<List<Film>>()
 
     fun getTvShowData(): LiveData<List<Film>> = tvShowRepository.getTvShowData()
 

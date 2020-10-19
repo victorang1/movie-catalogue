@@ -44,9 +44,9 @@ class MovieFragment : Fragment(), FilmClickCallback {
         loadData()
     }
 
-    override fun onItemClick(position: Int) {
+    override fun onItemClick(id: Int) {
         val intent = Intent(requireContext(), FilmDetailActivity::class.java).apply {
-            putExtra(FILM_ID, position)
+            putExtra(FILM_ID, id)
             putExtra(TYPE, R.string.text_type_movie)
         }
         startActivity(intent)
@@ -71,10 +71,11 @@ class MovieFragment : Fragment(), FilmClickCallback {
         try {
             mViewModel.getMovieData().observe(viewLifecycleOwner, Observer { movies ->
                 mViewModel.setLoading(false)
-                mBinding.isDataExists = movies.isNotEmpty()
-                if (movies.isNotEmpty())
+                if (movies.isNotEmpty()) {
                     mAdapter.setDataSet(movies)
-                else{
+                    mBinding.tvMessage.visibility = View.GONE
+                }
+                else {
                     mBinding.tvMessage.visibility = View.VISIBLE
                     mBinding.tvMessage.text = resources.getString(R.string.text_no_data)
                 }
