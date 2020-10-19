@@ -53,36 +53,8 @@
                 app:layout_constraintRight_toRightOf="parent"
                 />
 
-            <ImageView
-                android:id="@+id/icon_year"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_8dp"
-                android:layout_marginStart="@dimen/dimen_8dp"
-                android:src="@drawable/ic_calendar"
-                app:layout_constraintLeft_toRightOf="@id/iv_thumbnail"
-                app:layout_constraintTop_toBottomOf="@id/tv_title"
-                android:contentDescription="@string/text_year" />
-
             <TextView
                 android:id="@+id/tv_year"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimen_8dp"
-                android:layout_marginEnd="@dimen/dimen_8dp"
-                android:textColor="@color/colorWhite"
-                android:textSize="@dimen/text_16sp"
-                android:fontFamily="serif"
-                android:text="@{film.year}"
-                tools:text="2018"
-                app:layout_constraintLeft_toRightOf="@id/icon_year"
-                app:layout_constraintTop_toTopOf="@id/icon_year"
-                app:layout_constraintBottom_toBottomOf="@id/icon_year"
-                app:layout_constraintRight_toRightOf="parent"
-                />
-
-            <TextView
-                android:id="@+id/tv_category"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_8dp"
@@ -90,13 +62,49 @@
                 android:layout_marginEnd="@dimen/dimen_8dp"
                 android:textColor="@color/colorWhite"
                 android:textSize="@dimen/text_18sp"
+                android:fontFamily="serif"
+                android:text="@{film.releaseDate}"
+                tools:text="2018"
+                app:layout_constraintLeft_toRightOf="@id/iv_thumbnail"
+                app:layout_constraintTop_toBottomOf="@id/tv_title"
+                app:layout_constraintRight_toRightOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_popularity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_16sp"
                 android:fontFamily="sans-serif"
-                android:text="@{film.category}"
-                tools:text="Drama adfasdfasdf asdfasfasdfasfd"
-                app:drawableStartCompat="@drawable/ic_info"
+                android:text="@{film.popularityDisplay}"
+                tools:text="4229.264"
+                app:drawableStartCompat="@drawable/ic_star"
                 android:drawablePadding="@dimen/dimen_8dp"
                 app:layout_constraintLeft_toRightOf="@id/iv_thumbnail"
-                app:layout_constraintTop_toBottomOf="@id/icon_year"
+                app:layout_constraintTop_toBottomOf="@id/tv_year"
+                app:layout_constraintRight_toRightOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/tv_votes"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_8dp"
+                android:layout_marginStart="@dimen/dimen_8dp"
+                android:layout_marginEnd="@dimen/dimen_8dp"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/text_16sp"
+                android:fontFamily="sans-serif"
+                android:text="@{film.voteCountDisplay}"
+                tools:text="230"
+                app:drawableStartCompat="@drawable/ic_thumb_up"
+                android:drawablePadding="@dimen/dimen_8dp"
+                app:layout_constraintLeft_toRightOf="@id/iv_thumbnail"
+                app:layout_constraintTop_toBottomOf="@id/tv_popularity"
                 app:layout_constraintRight_toRightOf="parent"
                 />
 

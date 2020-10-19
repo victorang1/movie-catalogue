@@ -30,9 +30,9 @@ class FilmDetailActivity : AppCompatActivity() {
     private fun getResult() {
         val selectedFilmId = intent.getIntExtra(FILM_ID, -1)
         val selectedType = intent.getIntExtra(TYPE, -1)
-        if (selectedFilmId != -1 && selectedType != -1) {
-            renderSelectedFilm(mViewModel.loadDataById(selectedFilmId, selectedType))
-        } else finish()
+//        if (selectedFilmId != -1 && selectedType != -1) {
+//            renderSelectedFilm(mViewModel.loadDataById(selectedFilmId, selectedType))
+//        } else finish()
     }
 
     private fun renderSelectedFilm(film: Film) {
@@ -41,15 +41,5 @@ class FilmDetailActivity : AppCompatActivity() {
             .load(film.image)
             .apply(RequestOptions.errorOf(R.drawable.ic_error_black))
             .into(mBinding.ivThumbnail)
-        with(mBinding.score) {
-            setProgressWithAnimation(film.score, 5)
-            finishedStrokeColor = ContextCompat.getColor(
-                this@FilmDetailActivity, when (film.score) {
-                    in 70..100 -> R.color.colorProgressGreen
-                    in 50..70 -> R.color.colorProgressYellow
-                    else -> R.color.colorProgressRed
-                }
-            )
-        }
     }
 }

@@ -25,7 +25,7 @@ class FilmAdapter(val mCallback: FilmClickCallback, private val filmList: ArrayL
 
     override fun getItemCount(): Int = filmList.count()
 
-    fun setDataSet(filmList: ArrayList<Film>) {
+    fun setDataSet(filmList: List<Film>) {
         this.filmList.clear()
         this.filmList.addAll(filmList)
         notifyDataSetChanged()

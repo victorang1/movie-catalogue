@@ -15,6 +15,7 @@ android {
         versionCode 1
         versionName "1.0"
 
+        buildConfigField("String", "API_KEY", '"729434973f000771342b5aeea19d4630"')
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -58,6 +59,7 @@ dependencies {
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
 
     implementation "com.bikomobile:donutprogress:$donut_progress_version"
 
@@ -81,4 +83,7 @@ dependencies {
 
     testImplementation group: 'org.mockito', name: 'mockito-core', version: "$mockito_version"
     testImplementation "org.mockito:mockito-inline:$mockito_version"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
 }

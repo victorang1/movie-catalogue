@@ -1,16 +1,24 @@
 package com.example.moviecatalogue.di.modules
 
-import com.example.moviecatalogue.repository.IMovieRepository
-import com.example.moviecatalogue.repository.ITvShowRepository
-import com.example.moviecatalogue.repository.MovieRepository
-import com.example.moviecatalogue.repository.TvShowRepository
+import android.content.Context
+import android.content.res.Resources
+import com.example.moviecatalogue.service.ApiConfig
+import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 val appModule = module {
 
-    fun providesMovieRepository(): IMovieRepository = MovieRepository()
-    fun providesTvShowRepository(): ITvShowRepository = TvShowRepository()
+    fun providesRetrofit(): Retrofit {
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(ApiConfig.BASE_URL)
+            .build()
+    }
 
-    single { providesMovieRepository() }
-    single { providesTvShowRepository() }
+    fun providesResources(context: Context): Resources = context.resources
+
+    single { providesRetrofit() }
+    single { providesResources(androidContext()) }
 }

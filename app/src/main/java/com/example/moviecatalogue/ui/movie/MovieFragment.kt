@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecatalogue.R
 import com.example.moviecatalogue.databinding.FragmentMovieBinding
@@ -33,12 +34,14 @@ class MovieFragment : Fragment(), FilmClickCallback {
         savedInstanceState: Bundle?
     ): View? {
         mBinding = FragmentMovieBinding.inflate(inflater, container, false)
+        mBinding.isDataExists = true
         return mBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initializeAdapter()
+        initializeObserver()
         loadData()
     }
 
@@ -58,17 +61,27 @@ class MovieFragment : Fragment(), FilmClickCallback {
         }
     }
 
+    private fun initializeObserver() {
+        mViewModel.getLoadingStatus().observe(viewLifecycleOwner, Observer { isLoading ->
+            mBinding.isLoading = isLoading
+        })
+    }
+
     private fun loadData() {
+        mViewModel.setLoading(true)
         try {
-            val movies = mViewModel.getMovieData()
-            mBinding.isDataExists = movies.isNotEmpty()
-            if (movies.isNotEmpty())
-                mAdapter.setDataSet(movies)
-            else
-                mBinding.tvMessage.text = resources.getString(R.string.text_no_data)
+            mViewModel.getMovieData().observe(viewLifecycleOwner, Observer { movies ->
+                mViewModel.setLoading(false)
+                mBinding.isDataExists = movies.isNotEmpty()
+                if (movies.isNotEmpty())
+                    mAdapter.setDataSet(movies)
+                else
+                    mBinding.tvMessage.text = resources.getString(R.string.text_no_data)
+            })
         } catch (e: Exception) {
+            mViewModel.setLoading(false)
             mBinding.isDataExists = false
-            mBinding.tvMessage.text = resources.getString(R.string.text_error)
+            mBinding.tvMessage.text = e.message
         }
     }
 }

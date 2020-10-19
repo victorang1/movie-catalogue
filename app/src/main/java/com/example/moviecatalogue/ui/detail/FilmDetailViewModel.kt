@@ -11,8 +11,5 @@ class FilmDetailViewModel(
     private val tvShowRepository: ITvShowRepository
 ) : ViewModel() {
 
-    fun loadDataById(position: Int, type: Int): Film {
-        return if (type == R.string.text_type_movie) movieRepository.getMovieData()[position]
-        else tvShowRepository.getTvShowData()[position]
-    }
+
 }
