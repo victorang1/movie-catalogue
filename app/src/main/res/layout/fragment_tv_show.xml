@@ -6,7 +6,7 @@
     <data>
         <import type="android.view.View" />
         <variable
-            name="isDataExists"
+            name="isLoading"
             type="Boolean" />
     </data>
 
@@ -20,7 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/dimen_8dp"
-            android:visibility="@{isDataExists ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             />
@@ -29,11 +28,20 @@
             android:id="@+id/tv_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{isDataExists ? View.GONE : View.VISIBLE}"
-            tools:visibility="gone"
+            android:visibility="gone"
             android:text="@string/text_no_data"
             android:textSize="@dimen/text_32sp"
             android:textColor="@color/colorPrimary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

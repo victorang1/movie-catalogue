@@ -1,10 +1,30 @@
 package com.example.moviecatalogue.repository
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.moviecatalogue.BuildConfig
 import com.example.moviecatalogue.model.Film
+import com.example.moviecatalogue.service.ApiHandler
+import com.example.moviecatalogue.service.datamodel.movie.PopularMovieResponse
+import com.example.moviecatalogue.service.datamodel.tv.PopularTvResponse
+import com.example.moviecatalogue.service.tv.TvService
+import com.example.moviecatalogue.utils.ResponseHelper
 
-class TvShowRepository : ITvShowRepository {
+class TvShowRepository(private val tvService: TvService) : ITvShowRepository {
 
-    override fun getTvShowData(): ArrayList<Film> {
-        return arrayListOf()
+    override fun getTvShowData(): LiveData<List<Film>> {
+        val movies = MutableLiveData<List<Film>>()
+        tvService.getPopularTv(BuildConfig.API_KEY, object :
+            ApiHandler<PopularTvResponse> {
+
+            override fun onSuccess(response: PopularTvResponse) {
+                movies.value = ResponseHelper.convertToFilm(response)
+            }
+
+            override fun onFailure(throwable: Throwable) {
+                throw throwable
+            }
+        })
+        return movies
     }
 }

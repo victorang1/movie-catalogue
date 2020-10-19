@@ -12,7 +12,6 @@ class MovieViewModel(private val movieRepository: IMovieRepository) : ViewModel(
 
     fun getMovieData(): LiveData<List<Film>> = movieRepository.getMovieData()
 
-
     fun setLoading(loading: Boolean) {
         isLoading.value = loading
     }

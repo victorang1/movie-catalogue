@@ -34,7 +34,6 @@ class MovieFragment : Fragment(), FilmClickCallback {
         savedInstanceState: Bundle?
     ): View? {
         mBinding = FragmentMovieBinding.inflate(inflater, container, false)
-        mBinding.isDataExists = true
         return mBinding.root
     }
 
@@ -75,12 +74,14 @@ class MovieFragment : Fragment(), FilmClickCallback {
                 mBinding.isDataExists = movies.isNotEmpty()
                 if (movies.isNotEmpty())
                     mAdapter.setDataSet(movies)
-                else
+                else{
+                    mBinding.tvMessage.visibility = View.VISIBLE
                     mBinding.tvMessage.text = resources.getString(R.string.text_no_data)
+                }
             })
         } catch (e: Exception) {
             mViewModel.setLoading(false)
-            mBinding.isDataExists = false
+            mBinding.tvMessage.visibility = View.VISIBLE
             mBinding.tvMessage.text = e.message
         }
     }
