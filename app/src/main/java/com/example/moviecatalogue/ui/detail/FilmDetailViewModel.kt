@@ -21,11 +21,11 @@ class FilmDetailViewModel(
 
     fun getLoadingStatus(): LiveData<Boolean> = isLoading
 
-    fun loadDataById(movieId: Int, type: Int): LiveData<Film> {
+    fun loadDataById(id: Int, type: Int): LiveData<Film> {
         isLoading.value = true
         return when (type) {
-            R.string.text_type_movie -> movieRepository.getMovieDetails(movieId)
-            else -> tvShowRepository.getTvDetails(movieId)
+            R.string.text_type_movie -> movieRepository.getMovieDetails(id)
+            else -> tvShowRepository.getTvDetails(id)
         }
     }
 

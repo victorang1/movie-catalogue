@@ -3,6 +3,7 @@ package com.example.moviecatalogue
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import com.example.data.FakeMovieRepository
 import com.example.data.FakeTvRepository
 import com.example.moviecatalogue.model.Film
@@ -18,6 +19,7 @@ import com.example.util.LiveDataTestUtil
 import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.doAnswer
 import com.nhaarman.mockitokotlin2.eq
+import com.nhaarman.mockitokotlin2.mock
 import org.jetbrains.spek.api.Spek
 import org.junit.Assert
 import org.junit.platform.runner.JUnitPlatform
@@ -29,13 +31,12 @@ class FilmDetailTest : Spek({
 
     group("Film Detail Test") {
 
-        val movieService = Mockito.mock(MovieServiceImpl::class.java)
-        val tvService = Mockito.mock(TvServiceImpl::class.java)
-        val movieRepository = MovieRepository(movieService)
-        val tvShowRepository = TvShowRepository(tvService)
-        val viewModel = FilmDetailViewModel(movieRepository, tvShowRepository)
+        group("Checking Service get relevant data") {
 
-        group("Checking function get relevant data") {
+            val movieService = Mockito.mock(MovieServiceImpl::class.java)
+            val tvService = Mockito.mock(TvServiceImpl::class.java)
+            val movieRepository = MovieRepository(movieService)
+            val tvShowRepository = TvShowRepository(tvService)
 
             beforeEachTest {
                 ArchTaskExecutor.getInstance().setDelegate(object : TaskExecutor() {
@@ -55,7 +56,7 @@ class FilmDetailTest : Spek({
 
             afterEachTest { ArchTaskExecutor.getInstance().setDelegate(null) }
 
-            test("Checking Repository GetDetails Type Movie") {
+            test("Checking Service GetDetails Type Movie") {
                 doAnswer { invocation ->
                     (invocation.arguments[2] as ApiHandler<MovieDetailResponse>)
                         .onSuccess(FakeMovieRepository.getMovieDetailResponse())
@@ -65,7 +66,7 @@ class FilmDetailTest : Spek({
                 Assert.assertEquals("2067", movies?.title)
             }
 
-            test("Checking Repository GetDetails Type TvShow") {
+            test("Checking Service GetDetails Type TvShow") {
                 doAnswer { invocation ->
                     (invocation.arguments[2] as ApiHandler<TvDetailResponse>)
                         .onSuccess(FakeTvRepository.getTvDetailResponse())
@@ -74,21 +75,63 @@ class FilmDetailTest : Spek({
                 Assert.assertNotNull(tvs)
                 Assert.assertEquals("The Boys", tvs?.title)
             }
+        }
 
-            test("Checking ViewModel LoadDataById Type Movie") {
-                val dummyMovies = MutableLiveData<List<Film>>()
-                dummyMovies.value = FakeMovieRepository.getMovieDummyData()
-                val result = viewModel.loadDataById(1, R.string.text_type_movie)
-                Assert.assertNotNull(result.value)
-                Assert.assertEquals("2067", result.value?.title)
+        group("Checking Repository get relevant data") {
+
+            val movieRepo = Mockito.mock(MovieRepository::class.java)
+            val tvRepo = Mockito.mock(TvShowRepository::class.java)
+
+            val detailViewModel = FilmDetailViewModel(movieRepo, tvRepo)
+
+            val observer: Observer<Film> = mock()
+
+            beforeEachTest {
+                ArchTaskExecutor.getInstance().setDelegate(object : TaskExecutor() {
+                    override fun executeOnDiskIO(runnable: Runnable) {
+                        runnable.run()
+                    }
+
+                    override fun postToMainThread(runnable: Runnable) {
+                        runnable.run()
+                    }
+
+                    override fun isMainThread(): Boolean {
+                        return true
+                    }
+                })
             }
 
-            test("Checking ViewModel LoadDataById Type Tv") {
-                val dummyMovies = MutableLiveData<List<Film>>()
-                dummyMovies.value = FakeMovieRepository.getMovieDummyData()
-                val result = viewModel.loadDataById(1, R.string.text_type_tv_show)
-                Assert.assertNotNull(result.value)
-                Assert.assertEquals("The Boys", result.value?.title)
+            afterEachTest { ArchTaskExecutor.getInstance().setDelegate(null) }
+
+            test("Movie Repository GetMovieDetails") {
+                val dummyMovie = FakeMovieRepository.getMovieDummyData()[0]
+                val movieData = MutableLiveData<Film>()
+                movieData.value = dummyMovie
+
+                Mockito.`when`(movieRepo.getMovieDetails(0)).thenReturn(movieData)
+                val movie = detailViewModel.loadDataById(0, R.string.text_type_movie).value
+                Mockito.verify(movieRepo).getMovieDetails(0)
+                Assert.assertNotNull(movie)
+                Assert.assertEquals("A Star Is Born 1", movie?.title)
+
+                detailViewModel.loadDataById(0, R.string.text_type_movie).observeForever(observer)
+                Mockito.verify(observer).onChanged(FakeMovieRepository.getMovieDummyData()[0])
+            }
+
+            test("TvShow Repository GetTvDetails") {
+                val dummyTvShow = FakeTvRepository.getTvDummyData()[0]
+                val tvData = MutableLiveData<Film>()
+                tvData.value = dummyTvShow
+
+                Mockito.`when`(tvRepo.getTvDetails(0)).thenReturn(tvData)
+                val tvShows = detailViewModel.loadDataById(0, R.string.text_type_tv_show).value
+                Mockito.verify(tvRepo).getTvDetails(0)
+                Assert.assertNotNull(tvShows)
+                Assert.assertEquals("Arrow 1", tvShows?.title)
+
+                detailViewModel.loadDataById(0, R.string.text_type_tv_show).observeForever(observer)
+                Mockito.verify(observer).onChanged(FakeTvRepository.getTvDummyData()[0])
             }
         }
     }

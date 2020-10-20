@@ -1,6 +1,5 @@
 package com.example.data
 
-import com.example.moviecatalogue.R
 import com.example.moviecatalogue.model.Film
 import com.example.moviecatalogue.service.ApiConfig.BASE_IMG_PATH
 import com.example.moviecatalogue.service.datamodel.GenresItemResponse
@@ -15,9 +14,9 @@ internal object FakeMovieRepository {
         for (x in 1..15) {
             movies.add(
                 Film(
-                    R.drawable.poster_a_start_is_born,
+                    x,
+                    BASE_IMG_PATH + "/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg",
                     "A Star Is Born $x",
-                    "2018",
                     927.83,
                     235,
                     "19/10/2019",

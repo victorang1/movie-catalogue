@@ -1,6 +1,5 @@
 package com.example.data
 
-import com.example.moviecatalogue.R
 import com.example.moviecatalogue.model.Film
 import com.example.moviecatalogue.service.ApiConfig
 import com.example.moviecatalogue.service.datamodel.GenresItemResponse
@@ -15,9 +14,9 @@ internal object FakeTvRepository {
         for (x in 1..10) {
             movies.add(
                 Film(
-                    R.drawable.poster_arrow,
+                    x,
+                    ApiConfig.BASE_IMG_PATH + "/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg",
                     "Arrow $x",
-                    "2012",
                     250.34,
                     500,
                     "19/10/2019",
