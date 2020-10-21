@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.data.FakeMovieRepository
 import com.example.moviecatalogue.BuildConfig.API_KEY
-import com.example.moviecatalogue.model.Film
+import com.example.moviecatalogue.data.local.entity.Film
 import com.example.moviecatalogue.repository.MovieRepository
 import com.example.moviecatalogue.data.service.ApiHandler
 import com.example.moviecatalogue.data.service.datamodel.movie.PopularMovieResponse

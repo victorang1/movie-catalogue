@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.moviecatalogue.R
 import com.example.moviecatalogue.databinding.ActivityFilmDetailBinding
-import com.example.moviecatalogue.model.Film
+import com.example.moviecatalogue.data.local.entity.Film
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilmDetailActivity : AppCompatActivity() {

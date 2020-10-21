@@ -1,6 +1,6 @@
 package com.example.data
 
-import com.example.moviecatalogue.model.Film
+import com.example.moviecatalogue.data.local.entity.Film
 import com.example.moviecatalogue.data.service.ApiConfig.BASE_IMG_PATH
 import com.example.moviecatalogue.data.service.datamodel.GenresItemResponse
 import com.example.moviecatalogue.data.service.datamodel.movie.MovieDetailResponse

@@ -3,7 +3,7 @@ package com.example.moviecatalogue.repository
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.moviecatalogue.BuildConfig
-import com.example.moviecatalogue.model.Film
+import com.example.moviecatalogue.data.local.entity.Film
 import com.example.moviecatalogue.data.service.ApiHandler
 import com.example.moviecatalogue.data.service.datamodel.tv.PopularTvResponse
 import com.example.moviecatalogue.data.service.datamodel.tv.TvDetailResponse

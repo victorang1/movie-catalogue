@@ -7,7 +7,7 @@ import org.koin.core.inject
 
 object FilmType : KoinComponent {
 
-    val resources: Resources by inject()
+    private val resources: Resources by inject()
     var MOVIE = resources.getString(R.string.text_type_movie)
     var TV_SHOW = resources.getString(R.string.text_type_tv_show)
 }

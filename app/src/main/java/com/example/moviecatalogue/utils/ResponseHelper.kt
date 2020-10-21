@@ -1,6 +1,7 @@
 package com.example.moviecatalogue.utils
 
-import com.example.moviecatalogue.model.Film
+import com.example.moviecatalogue.constant.FilmType
+import com.example.moviecatalogue.data.local.entity.Film
 import com.example.moviecatalogue.data.service.ApiConfig.BASE_IMG_PATH
 import com.example.moviecatalogue.data.service.datamodel.GenresItemResponse
 import com.example.moviecatalogue.data.service.datamodel.movie.MovieDetailResponse
@@ -17,10 +18,11 @@ object ResponseHelper {
             val film = Film(
                 itemResponse.id,
                 BASE_IMG_PATH + itemResponse.posterPath,
-                itemResponse.title,
-                itemResponse.popularity,
-                itemResponse.voteCount,
-                itemResponse.releaseDate
+                itemResponse.title ?: "",
+                itemResponse.popularity ?: 0.0,
+                itemResponse.voteCount ?: 0,
+                itemResponse.releaseDate ?: "",
+                FilmType.MOVIE
             )
             films.add(film)
         }
@@ -33,10 +35,11 @@ object ResponseHelper {
             val film = Film(
                 itemResponse.id,
                 BASE_IMG_PATH + itemResponse.posterPath,
-                itemResponse.title,
-                itemResponse.popularity,
-                itemResponse.voteCount,
-                itemResponse.releaseDate
+                itemResponse.title ?: "",
+                itemResponse.popularity ?: 0.0,
+                itemResponse.voteCount ?: 0,
+                itemResponse.releaseDate ?: "",
+                FilmType.MOVIE
             )
             films.add(film)
         }
@@ -45,6 +48,7 @@ object ResponseHelper {
 
     fun convertToFilm(response: MovieDetailResponse): Film {
         return Film(
+            null,
             response.id,
             BASE_IMG_PATH + response.posterPath,
             response.title,
@@ -52,12 +56,14 @@ object ResponseHelper {
             response.voteCount,
             response.release_date,
             getGenres(response.genres),
-            response.overview
+            response.overview,
+            FilmType.MOVIE
         )
     }
 
     fun convertToFilm(response: TvDetailResponse): Film {
         return Film(
+            null,
             response.id,
             BASE_IMG_PATH + response.posterPath,
             response.title,
@@ -65,7 +71,8 @@ object ResponseHelper {
             response.voteCount,
             response.release_date,
             getGenres(response.genres),
-            response.overview
+            response.overview,
+            FilmType.MOVIE
         )
     }
 

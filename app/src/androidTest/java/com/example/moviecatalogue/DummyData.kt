@@ -1,6 +1,6 @@
 package com.example.moviecatalogue
 
-import com.example.moviecatalogue.model.Film
+import com.example.moviecatalogue.data.local.entity.Film
 
 object DummyData {
 

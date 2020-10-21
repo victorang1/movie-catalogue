@@ -1,12 +1,14 @@
-package com.example.moviecatalogue.model
+package com.example.moviecatalogue.data.local.entity
 
-import android.os.Parcelable
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
-import kotlinx.android.parcel.Parcelize
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-@Parcelize
+@Entity
 data class Film(
+    @PrimaryKey(autoGenerate = true)
+    val rowId: Int?,
     val id: Int,
     val image: String? = "",
     val title: String? = "",
@@ -15,7 +17,8 @@ data class Film(
     val releaseDate: String? = "",
     val category: String? = "",
     val overview: String? = "",
-) : BaseObservable(), Parcelable {
+    val filmType: String
+) : BaseObservable() {
 
     constructor(
         id: Int,
@@ -23,14 +26,16 @@ data class Film(
         title: String,
         popularity: Double,
         voteCount: Long,
-        releaseDate: String?
+        releaseDate: String?,
+        filmType: String
     ) : this(
+        null,
         id,
         image,
         title,
         popularity,
         voteCount,
-        releaseDate, "", ""
+        releaseDate, "", "", filmType
     )
 
     @Bindable

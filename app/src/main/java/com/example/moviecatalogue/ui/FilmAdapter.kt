@@ -7,7 +7,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.moviecatalogue.R
 import com.example.moviecatalogue.databinding.FilmItemLayoutBinding
-import com.example.moviecatalogue.model.Film
+import com.example.moviecatalogue.data.local.entity.Film
 
 class FilmAdapter(val mCallback: FilmClickCallback, private val filmList: ArrayList<Film>) :
     RecyclerView.Adapter<FilmAdapter.FilmViewHolder>() {

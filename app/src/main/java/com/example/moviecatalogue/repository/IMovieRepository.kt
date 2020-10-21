@@ -1,7 +1,7 @@
 package com.example.moviecatalogue.repository
 
 import androidx.lifecycle.LiveData
-import com.example.moviecatalogue.model.Film
+import com.example.moviecatalogue.data.local.entity.Film
 
 interface IMovieRepository {
     fun getMovieData(): LiveData<List<Film>>
