@@ -14,7 +14,7 @@ class LocalFilmSource(private val filmDao: FilmDao) {
     fun getAllTvShows(): DataSource.Factory<Int, Film> =
         filmDao.getAllFilmsByType(AppConstant.TV_SHOW)
 
-    fun insertFilms(films: List<Film>) = filmDao.insertFilm(films)
+    fun insertFilm(films: List<Film>) = filmDao.insertFilm(films)
 
     fun insertFilm(film: Film) = filmDao.insertFilm(film)
 
