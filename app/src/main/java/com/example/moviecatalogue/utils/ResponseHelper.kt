@@ -1,6 +1,6 @@
 package com.example.moviecatalogue.utils
 
-import com.example.moviecatalogue.constant.FilmType
+import com.example.moviecatalogue.constant.AppConstant
 import com.example.moviecatalogue.data.local.entity.Film
 import com.example.moviecatalogue.data.service.ApiConfig.BASE_IMG_PATH
 import com.example.moviecatalogue.data.service.datamodel.GenresItemResponse
@@ -22,7 +22,7 @@ object ResponseHelper {
                 itemResponse.popularity ?: 0.0,
                 itemResponse.voteCount ?: 0,
                 itemResponse.releaseDate ?: "",
-                FilmType.MOVIE
+                AppConstant.MOVIE
             )
             films.add(film)
         }
@@ -39,7 +39,7 @@ object ResponseHelper {
                 itemResponse.popularity ?: 0.0,
                 itemResponse.voteCount ?: 0,
                 itemResponse.releaseDate ?: "",
-                FilmType.MOVIE
+                AppConstant.MOVIE
             )
             films.add(film)
         }
@@ -57,7 +57,7 @@ object ResponseHelper {
             response.release_date,
             getGenres(response.genres),
             response.overview,
-            FilmType.MOVIE
+            AppConstant.MOVIE
         )
     }
 
@@ -72,7 +72,7 @@ object ResponseHelper {
             response.release_date,
             getGenres(response.genres),
             response.overview,
-            FilmType.MOVIE
+            AppConstant.MOVIE
         )
     }
 

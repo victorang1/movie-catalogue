@@ -51,7 +51,7 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
             when (response) {
                 is ApiResponse.Success ->
                     CoroutineScope(Dispatchers.IO).launch {
-                        saveCallResult(response.body)
+                        response.body?.let { saveCallResult(it) }
                         CoroutineScope(Dispatchers.Main).launch {
                             result.addSource(loadFromDB()) { newData ->
                                 result.value = Resource.Success(newData)

@@ -2,25 +2,25 @@ package com.example.moviecatalogue.data
 
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
-import com.example.moviecatalogue.constant.FilmType
+import com.example.moviecatalogue.constant.AppConstant
 import com.example.moviecatalogue.data.local.entity.Film
 import com.example.moviecatalogue.data.local.room.FilmDao
 
 class LocalFilmSource(private val filmDao: FilmDao) {
 
     fun getAllMovies(): DataSource.Factory<Int, Film> =
-        filmDao.getAllFilmsByType(FilmType.MOVIE)
+        filmDao.getAllFilmsByType(AppConstant.MOVIE)
 
     fun getAllTvShows(): DataSource.Factory<Int, Film> =
-        filmDao.getAllFilmsByType(FilmType.TV_SHOW)
+        filmDao.getAllFilmsByType(AppConstant.TV_SHOW)
 
     fun insertFilms(films: List<Film>) = filmDao.insertFilm(films)
 
     fun insertFilm(film: Film) = filmDao.insertFilm(film)
 
     fun getMovieById(id: Int): LiveData<Film> =
-        filmDao.getFilmById(id, FilmType.MOVIE)
+        filmDao.getFilmById(id, AppConstant.MOVIE)
 
     fun getTvShowById(id: Int): LiveData<Film> =
-        filmDao.getFilmById(id, FilmType.TV_SHOW)
+        filmDao.getFilmById(id, AppConstant.TV_SHOW)
 }
