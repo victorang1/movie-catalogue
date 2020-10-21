@@ -1,6 +1,6 @@
 package com.example.moviecatalogue.di.modules
 
-import com.example.moviecatalogue.data.LocalFilmSource
+import com.example.moviecatalogue.data.local.LocalFilmSource
 import com.example.moviecatalogue.repository.IMovieRepository
 import com.example.moviecatalogue.repository.ITvShowRepository
 import com.example.moviecatalogue.repository.MovieRepository

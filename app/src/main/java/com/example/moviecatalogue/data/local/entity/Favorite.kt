@@ -2,30 +2,18 @@ package com.example.moviecatalogue.data.local.entity
 
 import androidx.annotation.NonNull
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(
-    foreignKeys = [ForeignKey(
-        entity = Film::class,
-        parentColumns = ["id"],
-        childColumns = ["filmId"],
-    )],
-)
+@Entity
 data class Favorite(
-    @NonNull
-    @PrimaryKey(autoGenerate = true)
-    var favoriteId: Int,
-    
-    @NonNull
-    var filmId: Int,
 
+    @PrimaryKey
     @NonNull
-    var filmType: String,
+    val favoriteId: String,
 
-    @NonNull
-    var title: String,
+    val filmType: String,
 
-    @NonNull
-    var category: String
+    val title: String,
+
+    val category: String
 )

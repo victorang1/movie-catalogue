@@ -1,4 +1,4 @@
-package com.example.moviecatalogue.data
+package com.example.moviecatalogue.data.local
 
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource

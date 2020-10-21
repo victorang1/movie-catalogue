@@ -4,6 +4,7 @@ import androidx.annotation.NonNull
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 @Entity(primaryKeys = ["id", "title"])
 data class Film(

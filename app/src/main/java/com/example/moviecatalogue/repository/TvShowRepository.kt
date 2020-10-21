@@ -6,7 +6,7 @@ import androidx.paging.PagedList
 import com.example.moviecatalogue.common.ApiResponse
 import com.example.moviecatalogue.common.NetworkBoundResource
 import com.example.moviecatalogue.common.Resource
-import com.example.moviecatalogue.data.LocalFilmSource
+import com.example.moviecatalogue.data.local.LocalFilmSource
 import com.example.moviecatalogue.data.local.entity.Film
 import com.example.moviecatalogue.data.service.datamodel.tv.PopularTvResponse
 import com.example.moviecatalogue.data.service.datamodel.tv.TvDetailResponse
