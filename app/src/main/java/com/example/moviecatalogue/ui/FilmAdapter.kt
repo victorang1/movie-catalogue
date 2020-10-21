@@ -1,7 +1,10 @@
 package com.example.moviecatalogue.ui
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -9,8 +12,21 @@ import com.example.moviecatalogue.R
 import com.example.moviecatalogue.databinding.FilmItemLayoutBinding
 import com.example.moviecatalogue.data.local.entity.Film
 
-class FilmAdapter(val mCallback: FilmClickCallback, private val filmList: ArrayList<Film>) :
-    RecyclerView.Adapter<FilmAdapter.FilmViewHolder>() {
+class FilmAdapter(val mCallback: FilmClickCallback) :
+    PagedListAdapter<Film, FilmAdapter.FilmViewHolder>(DIFF_CALLBACK) {
+
+    companion object {
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Film>() {
+            override fun areItemsTheSame(oldItem: Film, newItem: Film): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            @SuppressLint("DiffUtilEquals")
+            override fun areContentsTheSame(oldItem: Film, newItem: Film): Boolean {
+                return oldItem == newItem
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmViewHolder {
         val itemBinding =
@@ -19,16 +35,8 @@ class FilmAdapter(val mCallback: FilmClickCallback, private val filmList: ArrayL
     }
 
     override fun onBindViewHolder(holder: FilmViewHolder, position: Int) {
-        val filmData = filmList[position]
+        val filmData = getItem(position) as Film
         holder.bind(filmData)
-    }
-
-    override fun getItemCount(): Int = filmList.count()
-
-    fun setDataSet(filmList: List<Film>) {
-        this.filmList.clear()
-        this.filmList.addAll(filmList)
-        notifyDataSetChanged()
     }
 
     inner class FilmViewHolder(private val itemBinding: FilmItemLayoutBinding) :

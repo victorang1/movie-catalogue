@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecatalogue.R
+import com.example.moviecatalogue.common.Resource
 import com.example.moviecatalogue.databinding.FragmentMovieBinding
 import com.example.moviecatalogue.ui.FilmAdapter
 import com.example.moviecatalogue.ui.FilmClickCallback
@@ -53,7 +55,7 @@ class MovieFragment : Fragment(), FilmClickCallback {
     }
 
     private fun initializeAdapter() {
-        mAdapter = FilmAdapter(this, arrayListOf())
+        mAdapter = FilmAdapter(this)
         with(mBinding.rvMovies) {
             this.layoutManager = LinearLayoutManager(activity)
             this.adapter = mAdapter
@@ -70,15 +72,27 @@ class MovieFragment : Fragment(), FilmClickCallback {
         mViewModel.setLoading(true)
         try {
             mViewModel.getMovieData().observe(viewLifecycleOwner, Observer { movies ->
-                mViewModel.setLoading(false)
-//                if (movies.isNotEmpty()) {
-//                    mAdapter.setDataSet(movies)
-//                    mBinding.tvMessage.visibility = View.GONE
-//                }
-//                else {
-//                    mBinding.tvMessage.visibility = View.VISIBLE
-//                    mBinding.tvMessage.text = resources.getString(R.string.text_no_data)
-//                }
+                if (movies != null) {
+                    when (movies) {
+                        is Resource.Success -> {
+                            mViewModel.setLoading(false)
+                            if (!movies.data.isNullOrEmpty()) {
+                                mAdapter.submitList(movies.data)
+                                mAdapter.notifyDataSetChanged()
+                                mBinding.tvMessage.visibility = View.GONE
+                            } else {
+                                mBinding.tvMessage.visibility = View.VISIBLE
+                                mBinding.tvMessage.text = resources.getString(R.string.text_no_data)
+                            }
+                        }
+                        is Resource.Loading -> mViewModel.setLoading(true)
+                        is Resource.Error -> {
+                            mViewModel.setLoading(false)
+                            Toast.makeText(requireContext(), movies.message, Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                }
             })
         } catch (e: Exception) {
             mViewModel.setLoading(false)

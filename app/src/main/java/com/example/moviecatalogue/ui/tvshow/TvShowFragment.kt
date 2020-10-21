@@ -53,7 +53,7 @@ class TvShowFragment : Fragment(), FilmClickCallback {
     }
 
     private fun initializeAdapter() {
-        mAdapter = FilmAdapter(this, arrayListOf())
+        mAdapter = FilmAdapter(this)
         with(mBinding.rvShows) {
             this.layoutManager = LinearLayoutManager(activity)
             this.adapter = mAdapter
@@ -71,13 +71,13 @@ class TvShowFragment : Fragment(), FilmClickCallback {
         try {
             mViewModel.getTvShowData().observe(viewLifecycleOwner, Observer { tvShows ->
                 mViewModel.setLoading(false)
-                if (tvShows.isNotEmpty()) {
-                    mAdapter.setDataSet(tvShows)
-                    mBinding.tvMessage.visibility = View.GONE
-                } else {
-                    mBinding.tvMessage.visibility = View.VISIBLE
-                    mBinding.tvMessage.text = resources.getString(R.string.text_no_data)
-                }
+//                if (tvShows.isNotEmpty()) {
+//                    mAdapter.setDataSet(tvShows)
+//                    mBinding.tvMessage.visibility = View.GONE
+//                } else {
+//                    mBinding.tvMessage.visibility = View.VISIBLE
+//                    mBinding.tvMessage.text = resources.getString(R.string.text_no_data)
+//                }
             })
         } catch (e: Exception) {
             mViewModel.setLoading(false)
