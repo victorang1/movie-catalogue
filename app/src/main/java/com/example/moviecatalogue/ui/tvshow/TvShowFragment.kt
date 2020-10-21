@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviecatalogue.R
 import com.example.moviecatalogue.common.Resource
+import com.example.moviecatalogue.constant.AppConstant
 import com.example.moviecatalogue.databinding.FragmentTvShowBinding
 import com.example.moviecatalogue.ui.FilmAdapter
 import com.example.moviecatalogue.ui.FilmClickCallback
@@ -49,7 +50,7 @@ class TvShowFragment : Fragment(), FilmClickCallback {
     override fun onItemClick(id: Int) {
         val intent = Intent(requireContext(), FilmDetailActivity::class.java).apply {
             putExtra(FILM_ID, id)
-            putExtra(TYPE, R.string.text_type_tv_show)
+            putExtra(TYPE, AppConstant.TV_SHOW)
         }
         startActivity(intent)
     }

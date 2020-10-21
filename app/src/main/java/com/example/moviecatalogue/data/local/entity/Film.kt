@@ -1,17 +1,18 @@
 package com.example.moviecatalogue.data.local.entity
 
+import androidx.annotation.NonNull
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(primaryKeys = ["id", "title"])
 data class Film(
-    @PrimaryKey(autoGenerate = true)
-    val rowId: Int?,
+    @NonNull
     val id: Int,
     val image: String? = "",
-    val title: String? = "",
+    @NonNull
+    val title: String,
     val popularity: Double? = 0.0,
     val voteCount: Long? = 0,
     val releaseDate: String? = "",
@@ -29,7 +30,6 @@ data class Film(
         releaseDate: String?,
         filmType: String
     ) : this(
-        null,
         id,
         image,
         title,

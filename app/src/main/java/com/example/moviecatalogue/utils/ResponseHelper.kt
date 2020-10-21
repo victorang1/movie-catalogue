@@ -48,10 +48,9 @@ object ResponseHelper {
 
     fun convertToFilm(response: MovieDetailResponse): Film {
         return Film(
-            null,
             response.id,
             BASE_IMG_PATH + response.posterPath,
-            response.title,
+            response.title ?: "",
             response.popularity,
             response.voteCount,
             response.release_date,
@@ -63,10 +62,9 @@ object ResponseHelper {
 
     fun convertToFilm(response: TvDetailResponse): Film {
         return Film(
-            null,
             response.id,
             BASE_IMG_PATH + response.posterPath,
-            response.title,
+            response.title ?: "",
             response.popularity,
             response.voteCount,
             response.release_date,
