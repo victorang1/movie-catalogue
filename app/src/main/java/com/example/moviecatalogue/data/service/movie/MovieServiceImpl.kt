@@ -1,72 +1,60 @@
 package com.example.moviecatalogue.data.service.movie
 
-import android.content.res.Resources
-import com.example.moviecatalogue.R
-import com.example.moviecatalogue.data.service.ApiHandler
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.moviecatalogue.BuildConfig.API_KEY
+import com.example.moviecatalogue.common.ApiHelper
+import com.example.moviecatalogue.common.ApiResponse
 import com.example.moviecatalogue.data.service.datamodel.movie.MovieDetailResponse
 import com.example.moviecatalogue.data.service.datamodel.movie.PopularMovieResponse
+import com.example.moviecatalogue.utils.EspressoIdlingResource
 import org.koin.core.KoinComponent
-import org.koin.core.inject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.lang.Exception
 
 class MovieServiceImpl(private val movieEndpoint: MovieEndpoint) : MovieService, KoinComponent {
 
-    private val resources: Resources by inject()
-
-    override fun getPopularMovies(apiKey: String, apiHandler: ApiHandler<PopularMovieResponse>) {
-        movieEndpoint.getPopularMovies(apiKey).enqueue(object: Callback<PopularMovieResponse> {
+    override fun getPopularMovies(): LiveData<ApiResponse<PopularMovieResponse>> {
+        EspressoIdlingResource.increment()
+        val result = MutableLiveData<ApiResponse<PopularMovieResponse>>()
+        movieEndpoint.getPopularMovies(API_KEY).enqueue(object : Callback<PopularMovieResponse> {
 
             override fun onResponse(
                 call: Call<PopularMovieResponse>,
                 response: Response<PopularMovieResponse>
             ) {
-                if (response.isSuccessful) {
-                    try {
-                        apiHandler.onSuccess(response.body()!!)
-                    } catch (e: Exception) {
-                        apiHandler.onFailure(e)
-                    }
-                }
-                else {
-                    apiHandler.onFailure(Throwable(resources.getString(R.string.text_network_error)))
-                }
+                EspressoIdlingResource.decrement()
+                result.value = ApiHelper.handleOnResponse(response)
             }
 
             override fun onFailure(call: Call<PopularMovieResponse>, t: Throwable) {
-                apiHandler.onFailure(t)
+                EspressoIdlingResource.decrement()
+                result.value = ApiHelper.handleOnFailure(t)
             }
         })
+        return result
     }
 
-    override fun getMovieDetails(
-        apiKey: String,
-        movieId: Int,
-        apiHandler: ApiHandler<MovieDetailResponse>
-    ) {
-        movieEndpoint.getMovieDetails(movieId, apiKey).enqueue(object: Callback<MovieDetailResponse> {
+    override fun getMovieDetails(movieId: Int): LiveData<ApiResponse<MovieDetailResponse>> {
+        EspressoIdlingResource.increment()
+        val result = MutableLiveData<ApiResponse<MovieDetailResponse>>()
+        movieEndpoint.getMovieDetails(movieId, API_KEY)
+            .enqueue(object : Callback<MovieDetailResponse> {
 
-            override fun onResponse(
-                call: Call<MovieDetailResponse>,
-                response: Response<MovieDetailResponse>
-            ) {
-                if (response.isSuccessful) {
-                    try {
-                        apiHandler.onSuccess(response.body()!!)
-                    } catch (e: Exception) {
-                        apiHandler.onFailure(e)
-                    }
+                override fun onResponse(
+                    call: Call<MovieDetailResponse>,
+                    response: Response<MovieDetailResponse>
+                ) {
+                    EspressoIdlingResource.decrement()
+                    result.value = ApiHelper.handleOnResponse(response)
                 }
-                else {
-                    apiHandler.onFailure(Throwable(resources.getString(R.string.text_network_error)))
-                }
-            }
 
-            override fun onFailure(call: Call<MovieDetailResponse>, t: Throwable) {
-                apiHandler.onFailure(t)
-            }
-        })
+                override fun onFailure(call: Call<MovieDetailResponse>, t: Throwable) {
+                    EspressoIdlingResource.decrement()
+                    result.value = ApiHelper.handleOnFailure(t)
+                }
+            })
+        return result
     }
 }

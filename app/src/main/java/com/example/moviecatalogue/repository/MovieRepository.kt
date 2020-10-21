@@ -1,20 +1,16 @@
 package com.example.moviecatalogue.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.LivePagedListBuilder
 import androidx.paging.PagedList
-import com.example.moviecatalogue.BuildConfig.API_KEY
 import com.example.moviecatalogue.common.ApiResponse
 import com.example.moviecatalogue.common.NetworkBoundResource
 import com.example.moviecatalogue.common.Resource
 import com.example.moviecatalogue.data.LocalFilmSource
 import com.example.moviecatalogue.data.local.entity.Film
-import com.example.moviecatalogue.data.service.ApiHandler
 import com.example.moviecatalogue.data.service.datamodel.movie.MovieDetailResponse
 import com.example.moviecatalogue.data.service.datamodel.movie.PopularMovieResponse
 import com.example.moviecatalogue.data.service.movie.MovieService
-import com.example.moviecatalogue.utils.EspressoIdlingResource
 import com.example.moviecatalogue.utils.ResponseHelper
 
 class MovieRepository(

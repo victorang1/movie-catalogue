@@ -71,14 +71,14 @@ class MovieFragment : Fragment(), FilmClickCallback {
         try {
             mViewModel.getMovieData().observe(viewLifecycleOwner, Observer { movies ->
                 mViewModel.setLoading(false)
-                if (movies.isNotEmpty()) {
-                    mAdapter.setDataSet(movies)
-                    mBinding.tvMessage.visibility = View.GONE
-                }
-                else {
-                    mBinding.tvMessage.visibility = View.VISIBLE
-                    mBinding.tvMessage.text = resources.getString(R.string.text_no_data)
-                }
+//                if (movies.isNotEmpty()) {
+//                    mAdapter.setDataSet(movies)
+//                    mBinding.tvMessage.visibility = View.GONE
+//                }
+//                else {
+//                    mBinding.tvMessage.visibility = View.VISIBLE
+//                    mBinding.tvMessage.text = resources.getString(R.string.text_no_data)
+//                }
             })
         } catch (e: Exception) {
             mViewModel.setLoading(false)

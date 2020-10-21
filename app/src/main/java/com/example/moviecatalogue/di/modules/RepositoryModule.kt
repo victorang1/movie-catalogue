@@ -1,5 +1,6 @@
 package com.example.moviecatalogue.di.modules
 
+import com.example.moviecatalogue.data.LocalFilmSource
 import com.example.moviecatalogue.repository.IMovieRepository
 import com.example.moviecatalogue.repository.ITvShowRepository
 import com.example.moviecatalogue.repository.MovieRepository
@@ -10,12 +11,15 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
 
-    fun providesMovieRepository(movieService: MovieService): IMovieRepository =
-        MovieRepository(movieService)
+    fun providesMovieRepository(
+        movieService: MovieService,
+        localFilmSource: LocalFilmSource
+    ): IMovieRepository =
+        MovieRepository(movieService, localFilmSource)
 
     fun providesTvShowRepository(tvService: TvService): ITvShowRepository =
         TvShowRepository(tvService)
 
-    single { providesMovieRepository(get()) }
+    single { providesMovieRepository(get(), get()) }
     single { providesTvShowRepository(get()) }
 }
