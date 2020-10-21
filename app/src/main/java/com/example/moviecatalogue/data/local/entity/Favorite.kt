@@ -6,7 +6,6 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-    primaryKeys = ["favoriteId", "filmId", "title"],
     foreignKeys = [ForeignKey(
         entity = Film::class,
         parentColumns = ["id"],
@@ -15,11 +14,11 @@ import androidx.room.PrimaryKey
 )
 data class Favorite(
     @NonNull
-    var filmId: Int,
-
-    @NonNull
     @PrimaryKey(autoGenerate = true)
     var favoriteId: Int,
+    
+    @NonNull
+    var filmId: Int,
 
     @NonNull
     var filmType: String,
