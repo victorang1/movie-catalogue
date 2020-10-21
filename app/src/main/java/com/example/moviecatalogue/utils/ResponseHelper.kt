@@ -39,7 +39,7 @@ object ResponseHelper {
                 itemResponse.popularity ?: 0.0,
                 itemResponse.voteCount ?: 0,
                 itemResponse.releaseDate ?: "",
-                AppConstant.MOVIE
+                AppConstant.TV_SHOW
             )
             films.add(film)
         }
@@ -72,7 +72,7 @@ object ResponseHelper {
             response.release_date,
             getGenres(response.genres),
             response.overview,
-            AppConstant.MOVIE
+            AppConstant.TV_SHOW
         )
     }
 

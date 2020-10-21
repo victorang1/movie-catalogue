@@ -17,9 +17,12 @@ val repositoryModule = module {
     ): IMovieRepository =
         MovieRepository(movieService, localFilmSource)
 
-    fun providesTvShowRepository(tvService: TvService): ITvShowRepository =
-        TvShowRepository(tvService)
+    fun providesTvShowRepository(
+        tvService: TvService,
+        localFilmSource: LocalFilmSource
+    ): ITvShowRepository =
+        TvShowRepository(tvService, localFilmSource)
 
     single { providesMovieRepository(get(), get()) }
-    single { providesTvShowRepository(get()) }
+    single { providesTvShowRepository(get(), get()) }
 }

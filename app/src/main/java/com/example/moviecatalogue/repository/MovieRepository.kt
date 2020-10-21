@@ -58,18 +58,5 @@ class MovieRepository(
                 localFilmSource.insertFilm(movie)
             }
         }.toLiveData()
-//        movieService.getMovieDetails(movieId, object : ApiHandler<MovieDetailResponse> {
-//
-//            override fun onSuccess(response: MovieDetailResponse) {
-//                movies.value = ResponseHelper.convertToFilm(response)
-//                EspressoIdlingResource.decrement()
-//            }
-//
-//            override fun onFailure(throwable: Throwable) {
-//                EspressoIdlingResource.decrement()
-//                throw throwable
-//            }
-//        })
-//        return movies
     }
 }
