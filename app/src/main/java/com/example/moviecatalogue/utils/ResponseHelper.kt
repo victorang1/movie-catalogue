@@ -1,12 +1,12 @@
 package com.example.moviecatalogue.utils
 
 import com.example.moviecatalogue.model.Film
-import com.example.moviecatalogue.service.ApiConfig.BASE_IMG_PATH
-import com.example.moviecatalogue.service.datamodel.GenresItemResponse
-import com.example.moviecatalogue.service.datamodel.movie.MovieDetailResponse
-import com.example.moviecatalogue.service.datamodel.movie.PopularMovieResponse
-import com.example.moviecatalogue.service.datamodel.tv.PopularTvResponse
-import com.example.moviecatalogue.service.datamodel.tv.TvDetailResponse
+import com.example.moviecatalogue.data.service.ApiConfig.BASE_IMG_PATH
+import com.example.moviecatalogue.data.service.datamodel.GenresItemResponse
+import com.example.moviecatalogue.data.service.datamodel.movie.MovieDetailResponse
+import com.example.moviecatalogue.data.service.datamodel.movie.PopularMovieResponse
+import com.example.moviecatalogue.data.service.datamodel.tv.PopularTvResponse
+import com.example.moviecatalogue.data.service.datamodel.tv.TvDetailResponse
 import java.lang.StringBuilder
 
 object ResponseHelper {

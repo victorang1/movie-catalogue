@@ -4,8 +4,8 @@ import com.example.moviecatalogue.repository.IMovieRepository
 import com.example.moviecatalogue.repository.ITvShowRepository
 import com.example.moviecatalogue.repository.MovieRepository
 import com.example.moviecatalogue.repository.TvShowRepository
-import com.example.moviecatalogue.service.movie.MovieService
-import com.example.moviecatalogue.service.tv.TvService
+import com.example.moviecatalogue.data.service.movie.MovieService
+import com.example.moviecatalogue.data.service.tv.TvService
 import org.koin.dsl.module
 
 val repositoryModule = module {

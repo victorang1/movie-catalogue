@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.moviecatalogue.BuildConfig.API_KEY
 import com.example.moviecatalogue.model.Film
-import com.example.moviecatalogue.service.ApiHandler
-import com.example.moviecatalogue.service.datamodel.movie.MovieDetailResponse
-import com.example.moviecatalogue.service.datamodel.movie.PopularMovieResponse
-import com.example.moviecatalogue.service.movie.MovieService
+import com.example.moviecatalogue.data.service.ApiHandler
+import com.example.moviecatalogue.data.service.datamodel.movie.MovieDetailResponse
+import com.example.moviecatalogue.data.service.datamodel.movie.PopularMovieResponse
+import com.example.moviecatalogue.data.service.movie.MovieService
 import com.example.moviecatalogue.utils.EspressoIdlingResource
 import com.example.moviecatalogue.utils.ResponseHelper
 

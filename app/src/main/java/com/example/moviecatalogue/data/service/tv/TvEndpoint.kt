@@ -1,7 +1,7 @@
-package com.example.moviecatalogue.service.tv
+package com.example.moviecatalogue.data.service.tv
 
-import com.example.moviecatalogue.service.datamodel.tv.PopularTvResponse
-import com.example.moviecatalogue.service.datamodel.tv.TvDetailResponse
+import com.example.moviecatalogue.data.service.datamodel.tv.PopularTvResponse
+import com.example.moviecatalogue.data.service.datamodel.tv.TvDetailResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

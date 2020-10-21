@@ -1,10 +1,10 @@
-package com.example.moviecatalogue.service.tv
+package com.example.moviecatalogue.data.service.tv
 
 import android.content.res.Resources
 import com.example.moviecatalogue.R
-import com.example.moviecatalogue.service.ApiHandler
-import com.example.moviecatalogue.service.datamodel.tv.PopularTvResponse
-import com.example.moviecatalogue.service.datamodel.tv.TvDetailResponse
+import com.example.moviecatalogue.data.service.ApiHandler
+import com.example.moviecatalogue.data.service.datamodel.tv.PopularTvResponse
+import com.example.moviecatalogue.data.service.datamodel.tv.TvDetailResponse
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import retrofit2.Call

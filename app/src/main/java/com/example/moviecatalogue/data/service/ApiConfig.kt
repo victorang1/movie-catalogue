@@ -1,4 +1,4 @@
-package com.example.moviecatalogue.service
+package com.example.moviecatalogue.data.service
 
 object ApiConfig {
 

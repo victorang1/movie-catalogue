@@ -8,9 +8,9 @@ import com.example.data.FakeMovieRepository
 import com.example.moviecatalogue.BuildConfig.API_KEY
 import com.example.moviecatalogue.model.Film
 import com.example.moviecatalogue.repository.MovieRepository
-import com.example.moviecatalogue.service.ApiHandler
-import com.example.moviecatalogue.service.datamodel.movie.PopularMovieResponse
-import com.example.moviecatalogue.service.movie.MovieServiceImpl
+import com.example.moviecatalogue.data.service.ApiHandler
+import com.example.moviecatalogue.data.service.datamodel.movie.PopularMovieResponse
+import com.example.moviecatalogue.data.service.movie.MovieServiceImpl
 import com.example.moviecatalogue.ui.movie.MovieViewModel
 import com.example.util.LiveDataTestUtil
 import com.nhaarman.mockitokotlin2.any

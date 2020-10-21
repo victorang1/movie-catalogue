@@ -7,9 +7,9 @@ import androidx.lifecycle.Observer
 import com.example.data.FakeTvRepository
 import com.example.moviecatalogue.model.Film
 import com.example.moviecatalogue.repository.TvShowRepository
-import com.example.moviecatalogue.service.ApiHandler
-import com.example.moviecatalogue.service.datamodel.tv.PopularTvResponse
-import com.example.moviecatalogue.service.tv.TvServiceImpl
+import com.example.moviecatalogue.data.service.ApiHandler
+import com.example.moviecatalogue.data.service.datamodel.tv.PopularTvResponse
+import com.example.moviecatalogue.data.service.tv.TvServiceImpl
 import com.example.moviecatalogue.ui.tvshow.TvShowViewModel
 import com.example.util.LiveDataTestUtil
 import com.nhaarman.mockitokotlin2.any

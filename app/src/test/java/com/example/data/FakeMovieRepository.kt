@@ -1,11 +1,11 @@
 package com.example.data
 
 import com.example.moviecatalogue.model.Film
-import com.example.moviecatalogue.service.ApiConfig.BASE_IMG_PATH
-import com.example.moviecatalogue.service.datamodel.GenresItemResponse
-import com.example.moviecatalogue.service.datamodel.movie.MovieDetailResponse
-import com.example.moviecatalogue.service.datamodel.movie.PopularMovieItemResponse
-import com.example.moviecatalogue.service.datamodel.movie.PopularMovieResponse
+import com.example.moviecatalogue.data.service.ApiConfig.BASE_IMG_PATH
+import com.example.moviecatalogue.data.service.datamodel.GenresItemResponse
+import com.example.moviecatalogue.data.service.datamodel.movie.MovieDetailResponse
+import com.example.moviecatalogue.data.service.datamodel.movie.PopularMovieItemResponse
+import com.example.moviecatalogue.data.service.datamodel.movie.PopularMovieResponse
 
 internal object FakeMovieRepository {
 

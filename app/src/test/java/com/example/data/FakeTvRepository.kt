@@ -1,11 +1,11 @@
 package com.example.data
 
 import com.example.moviecatalogue.model.Film
-import com.example.moviecatalogue.service.ApiConfig
-import com.example.moviecatalogue.service.datamodel.GenresItemResponse
-import com.example.moviecatalogue.service.datamodel.tv.PopularTvItemResponse
-import com.example.moviecatalogue.service.datamodel.tv.PopularTvResponse
-import com.example.moviecatalogue.service.datamodel.tv.TvDetailResponse
+import com.example.moviecatalogue.data.service.ApiConfig
+import com.example.moviecatalogue.data.service.datamodel.GenresItemResponse
+import com.example.moviecatalogue.data.service.datamodel.tv.PopularTvItemResponse
+import com.example.moviecatalogue.data.service.datamodel.tv.PopularTvResponse
+import com.example.moviecatalogue.data.service.datamodel.tv.TvDetailResponse
 
 internal object FakeTvRepository {
 

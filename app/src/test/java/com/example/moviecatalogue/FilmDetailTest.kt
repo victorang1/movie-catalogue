@@ -9,11 +9,11 @@ import com.example.data.FakeTvRepository
 import com.example.moviecatalogue.model.Film
 import com.example.moviecatalogue.repository.MovieRepository
 import com.example.moviecatalogue.repository.TvShowRepository
-import com.example.moviecatalogue.service.ApiHandler
-import com.example.moviecatalogue.service.datamodel.movie.MovieDetailResponse
-import com.example.moviecatalogue.service.datamodel.tv.TvDetailResponse
-import com.example.moviecatalogue.service.movie.MovieServiceImpl
-import com.example.moviecatalogue.service.tv.TvServiceImpl
+import com.example.moviecatalogue.data.service.ApiHandler
+import com.example.moviecatalogue.data.service.datamodel.movie.MovieDetailResponse
+import com.example.moviecatalogue.data.service.datamodel.tv.TvDetailResponse
+import com.example.moviecatalogue.data.service.movie.MovieServiceImpl
+import com.example.moviecatalogue.data.service.tv.TvServiceImpl
 import com.example.moviecatalogue.ui.detail.FilmDetailViewModel
 import com.example.util.LiveDataTestUtil
 import com.nhaarman.mockitokotlin2.any

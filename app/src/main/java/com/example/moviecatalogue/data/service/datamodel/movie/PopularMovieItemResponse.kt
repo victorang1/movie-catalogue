@@ -1,15 +1,14 @@
-package com.example.moviecatalogue.service.datamodel.tv
+package com.example.moviecatalogue.data.service.datamodel.movie
 
 import com.google.gson.annotations.SerializedName
 
-data class PopularTvItemResponse(
+data class PopularMovieItemResponse(
     val id: Int = 0,
     @SerializedName("poster_path")
     val posterPath: String? = "",
-    @SerializedName("name")
     val title: String? = "No title",
     val popularity: Double? = 0.0,
-    @SerializedName("first_air_date")
+    @SerializedName("release_date")
     val releaseDate: String? = "",
     @SerializedName("vote_count")
     val voteCount: Long? = 0
