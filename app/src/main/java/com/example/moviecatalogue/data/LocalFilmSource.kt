@@ -16,7 +16,7 @@ class LocalFilmSource(private val filmDao: FilmDao) {
 
     fun insertFilm(films: List<Film>) = filmDao.insertFilm(films)
 
-    fun insertFilm(film: Film) = filmDao.insertFilm(film)
+    fun updateFilm(film: Film) = filmDao.updateFilm(film)
 
     fun getMovieById(id: Int): LiveData<Film> =
         filmDao.getFilmById(id, AppConstant.MOVIE)

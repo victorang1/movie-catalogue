@@ -55,7 +55,7 @@ class MovieRepository(
 
             override fun saveCallResult(data: MovieDetailResponse) {
                 val movie = ResponseHelper.convertToFilm(data)
-                localFilmSource.insertFilm(movie)
+                localFilmSource.updateFilm(movie)
             }
         }.toLiveData()
     }

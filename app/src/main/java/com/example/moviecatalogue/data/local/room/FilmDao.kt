@@ -2,10 +2,7 @@ package com.example.moviecatalogue.data.local.room
 
 import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.example.moviecatalogue.data.local.entity.Film
 
 @Dao
@@ -20,6 +17,6 @@ interface FilmDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertFilm(films: List<Film>)
 
-    @Insert
-    fun insertFilm(film: Film)
+    @Update
+    fun updateFilm(film: Film)
 }

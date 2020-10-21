@@ -55,7 +55,7 @@ class TvShowRepository(
 
             override fun saveCallResult(data: TvDetailResponse) {
                 val movie = ResponseHelper.convertToFilm(data)
-                localFilmSource.insertFilm(movie)
+                localFilmSource.updateFilm(movie)
             }
         }.toLiveData()
     }

@@ -2,11 +2,13 @@ package com.example.moviecatalogue.ui.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.moviecatalogue.R
+import com.example.moviecatalogue.common.Resource
 import com.example.moviecatalogue.databinding.ActivityFilmDetailBinding
 import com.example.moviecatalogue.data.local.entity.Film
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -30,11 +32,27 @@ class FilmDetailActivity : AppCompatActivity() {
 
     private fun getResult() {
         val selectedFilmId = intent.getIntExtra(FILM_ID, -1)
-        val selectedType = intent.getIntExtra(TYPE, -1)
-        if (selectedFilmId != -1 && selectedType != -1) {
+        val selectedType = intent.getStringExtra(TYPE)
+        if (selectedFilmId != -1 && !selectedType.isNullOrEmpty()) {
             mViewModel.loadDataById(selectedFilmId, selectedType)
                 .observe(this, Observer { film ->
-                    renderSelectedFilm(film)
+                    when(film) {
+                        is Resource.Success -> {
+                            if (film.data != null) {
+                                renderSelectedFilm(film.data)
+                            } else {
+                                mBinding.tvError.visibility = View.VISIBLE
+                            }
+                            mViewModel.setLoading(false)
+                        }
+                        is Resource.Error -> {
+                            mViewModel.setLoading(false)
+                            mBinding.tvError.visibility = View.VISIBLE
+                        }
+                        is Resource.Loading -> {
+                            mViewModel.setLoading(true)
+                        }
+                    }
                 })
         } else finish()
     }
@@ -45,7 +63,6 @@ class FilmDetailActivity : AppCompatActivity() {
             .load(film.image)
             .apply(RequestOptions.errorOf(R.drawable.ic_error_black))
             .into(mBinding.ivThumbnail)
-        mViewModel.setLoading(false)
     }
 
     private fun initializeObserver() {
