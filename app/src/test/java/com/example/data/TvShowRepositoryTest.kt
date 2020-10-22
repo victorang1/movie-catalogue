@@ -62,7 +62,7 @@ class TvShowRepositoryTest : Spek({
 
         test("TvShowRepository GetTvDetails") {
             val movieData = MutableLiveData<Film>()
-            movieData.value = FakeTvRepository.getOneMovieDummyData()
+            movieData.value = FakeTvRepository.getOneTvDummyData()
             Mockito.`when`(localFilmSource.getTvShowById(0)).thenReturn(movieData)
 
             val tv = LiveDataTestUtil.getValue(tvRepository.getTvDetails(0))

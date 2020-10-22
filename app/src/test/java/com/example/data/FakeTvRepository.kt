@@ -29,7 +29,7 @@ internal object FakeTvRepository {
         return movies
     }
 
-    fun getOneMovieDummyData(): Film {
+    fun getOneTvDummyData(): Film {
         return Film(
             1,
             ApiConfig.BASE_IMG_PATH + "/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg",
