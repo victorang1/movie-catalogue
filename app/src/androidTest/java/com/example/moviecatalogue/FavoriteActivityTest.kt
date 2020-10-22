@@ -35,17 +35,6 @@ class FavoriteActivityTest {
     }
 
     @Test
-    fun loadFavoriteItems() {
-        onView(withId(R.id.favorite))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.favorite))
-            .perform((ViewActions.click()))
-        onView(withId(R.id.rv_favorite))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.rv_favorite)).check(RecyclerViewItemCountAssertion(greaterThan(0)))
-    }
-
-    @Test
     fun searchBarShown() {
         onView(withId(R.id.favorite))
             .check(ViewAssertions.matches(isDisplayed()))
