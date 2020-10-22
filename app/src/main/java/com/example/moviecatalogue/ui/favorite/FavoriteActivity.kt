@@ -1,10 +1,14 @@
 package com.example.moviecatalogue.ui.favorite
 
+import android.app.SearchManager
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,11 +19,13 @@ import com.example.moviecatalogue.data.local.entity.Favorite
 import com.example.moviecatalogue.databinding.ActivityFavoriteBinding
 import org.koin.android.ext.android.inject
 
-class FavoriteActivity : AppCompatActivity(), FavoriteItemClickCallback{
+class FavoriteActivity : AppCompatActivity(), FavoriteItemClickCallback,
+    SearchView.OnQueryTextListener {
 
     private lateinit var mBinding: ActivityFavoriteBinding
     private lateinit var mAdapter: FavoriteAdapter
     private val mViewModel: FavoriteViewModel by inject()
+    private lateinit var searchView: SearchView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,39 +42,60 @@ class FavoriteActivity : AppCompatActivity(), FavoriteItemClickCallback{
     }
 
     private fun initializeObserver() {
-        mViewModel.getShowedData().observe(this, Observer { resource ->
-            if (resource != null) {
-                when (resource) {
-                    is Resource.Success -> {
-                        if (!resource.data.isNullOrEmpty()) {
-                            mAdapter.submitList(resource.data)
-                            mAdapter.notifyDataSetChanged()
-                        } else {
-                            mBinding.tvMessage.visibility = View.VISIBLE
-                            mBinding.tvMessage.text = getString(R.string.text_no_data)
-                        }
-                        mViewModel.setLoading(false)
-                    }
-                    is Resource.Loading -> mViewModel.setLoading(true)
-                    is Resource.Error -> {
-                        mViewModel.setLoading(false)
-                        mBinding.tvMessage.visibility = View.VISIBLE
-                    }
-                }
-            }
-        })
+        resetShowedData()
 
         mViewModel.getLoadingStatus().observe(this, Observer { isLoading ->
             mBinding.isLoading = isLoading
         })
     }
 
+    private fun resetShowedData() {
+        mViewModel.getShowedData().observe(this, Observer { resource ->
+            if (resource != null) {
+                when (resource) {
+                    is Resource.Success -> {
+                        if (!resource.data.isNullOrEmpty()) {
+                            setError(false)
+                            mAdapter.submitList(resource.data)
+                            mAdapter.notifyDataSetChanged()
+                        } else {
+                            setError(true)
+                            mBinding.tvMessage.text = getString(R.string.text_no_data)
+                        }
+                        mViewModel.setLoading(false)
+                    }
+                    is Resource.Loading -> mViewModel.setLoading(true)
+                    is Resource.Error -> {
+                        setError(true)
+                        mViewModel.setLoading(false)
+                    }
+                }
+            }
+        })
+    }
+
+    private fun setError(isError: Boolean) {
+        mBinding.rvFavorite.visibility = if(isError) View.GONE else View.VISIBLE
+        mBinding.tvMessage.visibility = if(isError) View.VISIBLE else View.GONE
+    }
+
+    private fun initializeSearchView(menu: Menu) {
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        searchView = menu.findItem(R.id.menu_search).actionView as SearchView
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.queryHint = resources.getString(R.string.text_search_hint)
+        searchView.setOnQueryTextListener(this)
+        searchView.clearFocus()
+    }
+
     override fun onRemoveClick(favorite: Favorite) {
         TODO("Not yet implemented")
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.favorite_menu, menu)
+        initializeSearchView(menu)
         return true
     }
 
@@ -85,4 +112,39 @@ class FavoriteActivity : AppCompatActivity(), FavoriteItemClickCallback{
         }
         return true
     }
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (!query.isNullOrEmpty()) {
+            mViewModel.searchUser(query).observe(this, Observer { resource ->
+                if (resource != null) {
+                    when (resource) {
+                        is Resource.Success -> {
+                            if (!resource.data.isNullOrEmpty()) {
+                                setError(false)
+                                mAdapter.submitList(resource.data)
+                                mAdapter.notifyDataSetChanged()
+                            } else {
+                                setError(true)
+                                mBinding.tvMessage.text = getString(R.string.text_no_data)
+                            }
+                            mViewModel.setLoading(false)
+                        }
+                        is Resource.Loading -> mViewModel.setLoading(true)
+                        is Resource.Error -> {
+                            setError(true)
+                            mViewModel.setLoading(false)
+                        }
+                    }
+                }
+                searchView.clearFocus()
+            })
+        }
+        return true
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        resetShowedData()
+        return true
+    }
+
 }

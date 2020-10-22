@@ -13,6 +13,12 @@ class LocalFavoriteSource(private val favoriteDao: FavoriteDao) {
     fun getAllTvShows(): DataSource.Factory<Int, Favorite> =
         favoriteDao.getAllFavoritesByType(AppConstant.TV_SHOW)
 
+    fun getFilteredMovies(title: String): DataSource.Factory<Int, Favorite> =
+        favoriteDao.filterFilms(title, AppConstant.MOVIE)
+
+    fun getFilteredTvShow(title: String): DataSource.Factory<Int, Favorite> =
+        favoriteDao.filterFilms(title, AppConstant.TV_SHOW)
+
     suspend fun insertFilm(favoriteFilm: Favorite) = favoriteDao.insertFavorite(favoriteFilm)
 
     suspend fun deleteFromFavorite(favoriteFilm: Favorite) = favoriteDao.deleteFromFavorite(favoriteFilm)

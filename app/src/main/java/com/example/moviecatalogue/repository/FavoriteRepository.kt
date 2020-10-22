@@ -11,6 +11,7 @@ import com.example.moviecatalogue.common.Resource
 import com.example.moviecatalogue.constant.AppConstant
 import com.example.moviecatalogue.data.local.LocalFavoriteSource
 import com.example.moviecatalogue.data.local.entity.Favorite
+import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -38,7 +39,6 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
                     result.postValue(Resource.Success(it))
                 }
             } catch (e: Exception) {
-                Log.d("<RESULT>", "getAllFavoriteMovies: " + e.message)
                 result.postValue(
                     Resource.Error(
                         null,
@@ -68,7 +68,6 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
                     result.postValue(Resource.Success(it))
                 }
             } catch (e: Exception) {
-                Log.d("<RESULT>", "getAllFavoriteTvs: " + e.message)
                 result.postValue(
                     Resource.Error(
                         null,
@@ -142,6 +141,66 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
                     false,
                     AppConstant.resources.getString(R.string.text_network_error)
                 ))
+            }
+        }
+        return result
+    }
+
+    override fun searchMovies(title: String): LiveData<Resource<PagedList<Favorite>>> {
+        val result = MediatorLiveData<Resource<PagedList<Favorite>>>()
+        Log.d("<RESULT>", "searchMovies: $title")
+        result.value = Resource.Loading(null)
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val fromDb = async(Dispatchers.IO) {
+                    val config = PagedList.Config.Builder()
+                        .setEnablePlaceholders(false)
+                        .setInitialLoadSizeHint(4)
+                        .setPageSize(4)
+                        .build()
+                    LivePagedListBuilder(localFavoriteSource.getFilteredMovies(title), config).build()
+                }
+                result.addSource(fromDb.await()) {
+                    result.removeSource(result)
+                    Log.d("<RESULT>", "searchMovies: " + Gson().toJson(it))
+                    result.postValue(Resource.Success(it))
+                }
+            } catch (e: Exception) {
+                result.postValue(
+                    Resource.Error(
+                        null,
+                        AppConstant.resources.getString(R.string.text_network_error)
+                    )
+                )
+            }
+        }
+        return result
+    }
+
+    override fun searchTvShows(title: String): LiveData<Resource<PagedList<Favorite>>> {
+        val result = MediatorLiveData<Resource<PagedList<Favorite>>>()
+        result.value = Resource.Loading(null)
+        CoroutineScope(Dispatchers.Main).launch {
+            try {
+                val fromDb = async(Dispatchers.IO) {
+                    val config = PagedList.Config.Builder()
+                        .setEnablePlaceholders(false)
+                        .setInitialLoadSizeHint(4)
+                        .setPageSize(4)
+                        .build()
+                    LivePagedListBuilder(localFavoriteSource.getFilteredTvShow(title), config).build()
+                }
+                result.addSource(fromDb.await()) {
+                    result.removeSource(result)
+                    result.postValue(Resource.Success(it))
+                }
+            } catch (e: Exception) {
+                result.postValue(
+                    Resource.Error(
+                        null,
+                        AppConstant.resources.getString(R.string.text_network_error)
+                    )
+                )
             }
         }
         return result

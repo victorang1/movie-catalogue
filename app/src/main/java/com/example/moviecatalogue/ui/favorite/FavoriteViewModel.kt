@@ -29,4 +29,10 @@ class FavoriteViewModel(private val favoriteRepository: IFavoriteRepository) : V
                 else -> favoriteRepository.getAllFavoriteTvs()
             }
         }
+
+    fun searchUser(title: String): LiveData<Resource<PagedList<Favorite>>> =
+        when (selectedFilmType.value) {
+            AppConstant.MOVIE -> favoriteRepository.searchMovies(title)
+            else -> favoriteRepository.searchTvShows(title)
+        }
 }

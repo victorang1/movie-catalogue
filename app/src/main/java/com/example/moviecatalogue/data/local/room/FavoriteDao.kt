@@ -18,4 +18,7 @@ interface FavoriteDao {
 
     @Query("SELECT * FROM favorite WHERE filmType=:filmType AND filmId=:id LIMIT 1")
     suspend fun isFavoriteFilm(id: Int, filmType: String): Favorite
+
+    @Query("SELECT * FROM favorite where title LIKE '%' || :title || '%' AND filmType=:filmType")
+    fun filterFilms(title: String, filmType: String): DataSource.Factory<Int, Favorite>
 }
