@@ -18,7 +18,14 @@ abstract class NetworkBoundResource<ResultType, RequestType> {
 
         result.addSource(dbSource) {
             result.removeSource(dbSource)
-            fetchFromNetwork(dbSource)
+            if (shouldFetch(it)) {
+                fetchFromNetwork(dbSource)
+            }
+            else {
+                result.addSource(dbSource) { newData ->
+                    result.value = Resource.Success(newData)
+                }
+            }
         }
     }
 
