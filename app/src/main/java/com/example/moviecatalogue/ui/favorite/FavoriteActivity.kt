@@ -87,6 +87,7 @@ class FavoriteActivity : AppCompatActivity(), FavoriteItemClickCallback,
         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
         searchView.queryHint = resources.getString(R.string.text_search_hint)
         searchView.setOnQueryTextListener(this)
+        searchView.isIconified = false
         searchView.clearFocus()
     }
 

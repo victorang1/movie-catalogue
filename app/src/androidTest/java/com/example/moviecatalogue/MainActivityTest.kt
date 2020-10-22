@@ -43,34 +43,6 @@ class MainActivityTest {
     }
 
     @Test
-    fun loadDetailMovies() {
-        onView(withId(R.id.rv_movies)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                0,
-                ViewActions.click()
-            )
-        )
-        onView(withId(R.id.iv_thumbnail))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.tv_title))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.tv_year))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.tv_popularity))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.tv_votes))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.tv_category_text))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.tv_category))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.tv_overview))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.tv_overview_display))
-            .check(ViewAssertions.matches(isDisplayed()))
-    }
-
-    @Test
     fun loadTvShows() {
         onView(withText("Tv Shows")).perform(ViewActions.click())
         onView(withId(R.id.rv_shows)).check(ViewAssertions.matches(isDisplayed()))
@@ -79,52 +51,5 @@ class MainActivityTest {
                 dummyTvShows.size
             )
         )
-    }
-
-    @Test
-    fun loadDetailShows() {
-        onView(withText("Tv Shows")).perform(ViewActions.click())
-        onView(withId(R.id.rv_shows)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
-                0,
-                ViewActions.click()
-            )
-        )
-        onView(withId(R.id.iv_thumbnail))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.tv_title))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.tv_year))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.tv_popularity))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.tv_votes))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.tv_category_text))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.tv_category))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.tv_overview))
-            .check(ViewAssertions.matches(isDisplayed()))
-        onView(withId(R.id.tv_overview_display))
-            .check(ViewAssertions.matches(isDisplayed()))
-    }
-
-    @Test
-    fun loadNoDataMovies() {
-        val recyclerView = activityRule.activity.findViewById<RecyclerView>(R.id.rv_movies)
-        if (recyclerView.adapter?.itemCount == 0) {
-            onView(withId(R.id.rv_movies)).check(ViewAssertions.matches(not(isDisplayed())))
-            onView(withId(R.id.tv_message)).check(ViewAssertions.matches(isDisplayed()))
-        }
-    }
-
-    @Test
-    fun loadNoDataTvs() {
-        val recyclerView = activityRule.activity.findViewById<RecyclerView>(R.id.rv_shows)
-        if (recyclerView.adapter?.itemCount == 0) {
-            onView(withId(R.id.rv_shows)).check(ViewAssertions.matches(not(isDisplayed())))
-            onView(withId(R.id.tv_message)).check(ViewAssertions.matches(isDisplayed()))
-        }
     }
 }

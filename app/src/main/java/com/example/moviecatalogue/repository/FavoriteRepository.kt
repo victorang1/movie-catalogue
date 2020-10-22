@@ -1,6 +1,5 @@
 package com.example.moviecatalogue.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,7 +10,7 @@ import com.example.moviecatalogue.common.Resource
 import com.example.moviecatalogue.constant.AppConstant
 import com.example.moviecatalogue.data.local.LocalFavoriteSource
 import com.example.moviecatalogue.data.local.entity.Favorite
-import com.google.gson.Gson
+import com.example.moviecatalogue.utils.EspressoIdlingResource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -22,6 +21,7 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
     IFavoriteRepository {
 
     override fun getAllFavoriteMovies(): LiveData<Resource<PagedList<Favorite>>> {
+        EspressoIdlingResource.increment()
         val result = MediatorLiveData<Resource<PagedList<Favorite>>>()
         result.value = Resource.Loading(null)
         CoroutineScope(Dispatchers.Main).launch {
@@ -37,6 +37,7 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
                 result.addSource(fromDb.await()) {
                     result.removeSource(result)
                     result.postValue(Resource.Success(it))
+                    EspressoIdlingResource.decrement()
                 }
             } catch (e: Exception) {
                 result.postValue(
@@ -45,12 +46,14 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
                         AppConstant.resources.getString(R.string.text_network_error)
                     )
                 )
+                EspressoIdlingResource.decrement()
             }
         }
         return result
     }
 
     override fun getAllFavoriteTvs(): LiveData<Resource<PagedList<Favorite>>> {
+        EspressoIdlingResource.increment()
         val result = MediatorLiveData<Resource<PagedList<Favorite>>>()
         result.value = Resource.Loading(null)
         CoroutineScope(Dispatchers.Main).launch {
@@ -66,6 +69,7 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
                 result.addSource(fromDb.await()) {
                     result.removeSource(result)
                     result.postValue(Resource.Success(it))
+                    EspressoIdlingResource.decrement()
                 }
             } catch (e: Exception) {
                 result.postValue(
@@ -74,81 +78,94 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
                         AppConstant.resources.getString(R.string.text_network_error)
                     )
                 )
+                EspressoIdlingResource.decrement()
             }
         }
         return result
     }
 
     override fun insertFavorite(favorite: Favorite): LiveData<Resource<Boolean>> {
+        EspressoIdlingResource.increment()
         val result = MutableLiveData<Resource<Boolean>>(Resource.Loading(null))
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 localFavoriteSource.insertFilm(favorite)
                 result.postValue(Resource.Success(true))
+                EspressoIdlingResource.decrement()
             } catch (e: Exception) {
                 val resources = Resource.Error(
                     false,
                     AppConstant.resources.getString(R.string.text_network_error)
                 )
                 result.postValue(resources)
+                EspressoIdlingResource.decrement()
             }
         }
         return result
     }
 
     override fun deleteFromFavorite(favorite: Favorite): LiveData<Resource<Boolean>> {
+        EspressoIdlingResource.increment()
         val result = MutableLiveData<Resource<Boolean>>(Resource.Loading(null))
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 localFavoriteSource.deleteFromFavorite(favorite)
                 result.postValue(Resource.Success(true))
+                EspressoIdlingResource.decrement()
             } catch (e: Exception) {
                 val resources = Resource.Error(
                     false,
                     AppConstant.resources.getString(R.string.text_network_error)
                 )
                 result.postValue(resources)
+                EspressoIdlingResource.decrement()
             }
         }
         return result
     }
 
     override fun isFavoriteMovie(movieId: Int): LiveData<Resource<Boolean>> {
+        EspressoIdlingResource.increment()
         val result = MutableLiveData<Resource<Boolean>>(Resource.Loading(null))
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val movie = localFavoriteSource.isFavoriteMovie(movieId)
                 result.postValue(Resource.Success(movie != null))
+                EspressoIdlingResource.decrement()
             } catch (e: Exception) {
                 val resources = Resource.Error(
                     false,
                     AppConstant.resources.getString(R.string.text_network_error)
                 )
                 result.postValue(resources)
+                EspressoIdlingResource.decrement()
             }
         }
         return result
     }
 
     override fun isFavoriteTvShow(tvId: Int): LiveData<Resource<Boolean>> {
+        EspressoIdlingResource.increment()
         val result = MutableLiveData<Resource<Boolean>>(Resource.Loading(null))
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val tvShow = localFavoriteSource.isFavoriteTvShow(tvId)
                 result.postValue(Resource.Success(tvShow != null))
+                EspressoIdlingResource.decrement()
             } catch (e: Exception) {
                 result.postValue(Resource.Error(
                     false,
                     AppConstant.resources.getString(R.string.text_network_error)
                 ))
+                EspressoIdlingResource.decrement()
             }
         }
         return result
     }
 
     override fun searchMovies(title: String): LiveData<Resource<PagedList<Favorite>>> {
+        EspressoIdlingResource.increment()
         val result = MediatorLiveData<Resource<PagedList<Favorite>>>()
-        Log.d("<RESULT>", "searchMovies: $title")
         result.value = Resource.Loading(null)
         CoroutineScope(Dispatchers.Main).launch {
             try {
@@ -162,8 +179,8 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
                 }
                 result.addSource(fromDb.await()) {
                     result.removeSource(result)
-                    Log.d("<RESULT>", "searchMovies: " + Gson().toJson(it))
                     result.postValue(Resource.Success(it))
+                    EspressoIdlingResource.decrement()
                 }
             } catch (e: Exception) {
                 result.postValue(
@@ -172,12 +189,14 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
                         AppConstant.resources.getString(R.string.text_network_error)
                     )
                 )
+                EspressoIdlingResource.decrement()
             }
         }
         return result
     }
 
     override fun searchTvShows(title: String): LiveData<Resource<PagedList<Favorite>>> {
+        EspressoIdlingResource.increment()
         val result = MediatorLiveData<Resource<PagedList<Favorite>>>()
         result.value = Resource.Loading(null)
         CoroutineScope(Dispatchers.Main).launch {
@@ -193,6 +212,7 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
                 result.addSource(fromDb.await()) {
                     result.removeSource(result)
                     result.postValue(Resource.Success(it))
+                    EspressoIdlingResource.decrement()
                 }
             } catch (e: Exception) {
                 result.postValue(
@@ -201,6 +221,7 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
                         AppConstant.resources.getString(R.string.text_network_error)
                     )
                 )
+                EspressoIdlingResource.decrement()
             }
         }
         return result
