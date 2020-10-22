@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.example.data.FakeMovieRepository
 import com.example.moviecatalogue.BuildConfig.API_KEY
+import com.example.moviecatalogue.data.local.LocalFilmSource
 import com.example.moviecatalogue.data.local.entity.Film
 import com.example.moviecatalogue.repository.MovieRepository
 import com.example.moviecatalogue.data.service.ApiHandler
@@ -31,7 +32,8 @@ class MovieTest : Spek({
     group("Movie Service Test") {
 
         val movieService = Mockito.mock(MovieServiceImpl::class.java)
-        val movieRepository = MovieRepository(movieService)
+        val localFilmSource = Mockito.mock(LocalFilmSource::class.java)
+        val movieRepository = MovieRepository(movieService, localFilmSource)
 
         beforeEachTest {
             ArchTaskExecutor.getInstance().setDelegate(object : TaskExecutor() {
@@ -53,10 +55,10 @@ class MovieTest : Spek({
 
         test("Service GetMovieData") {
             doAnswer { invocation ->
-                (invocation.arguments[1] as ApiHandler<PopularMovieResponse>)
+                (invocation.arguments[0] as ApiHandler<PopularMovieResponse>)
                     .onSuccess(FakeMovieRepository.getPopularMovieResponse())
                 null
-            }.`when`(movieService).getPopularMovies(eq(API_KEY), any())
+            }.`when`(movieService).getPopularMovies()
             val movies = LiveDataTestUtil.getValue(movieRepository.getMovieData())
             Assert.assertNotNull(movies)
             Assert.assertEquals(15, movies?.count())
