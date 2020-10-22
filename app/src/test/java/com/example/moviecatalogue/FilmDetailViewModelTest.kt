@@ -4,22 +4,25 @@ import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.paging.PagedList
+import com.example.data.FakeMovieRepository
 import com.example.moviecatalogue.common.Resource
 import com.example.moviecatalogue.data.local.entity.Film
+import com.example.moviecatalogue.repository.FavoriteRepository
 import com.example.moviecatalogue.repository.MovieRepository
 import com.example.moviecatalogue.repository.TvShowRepository
-import com.example.moviecatalogue.ui.movie.MovieViewModel
+import com.example.moviecatalogue.ui.detail.FilmDetailViewModel
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
-import junit.framework.Assert
+import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertNotNull
 import org.jetbrains.spek.api.Spek
 import org.junit.platform.runner.JUnitPlatform
 import org.junit.runner.RunWith
 import org.mockito.Mockito
+import org.mockito.Mockito.`when`
 
 @RunWith(JUnitPlatform::class)
-class FilmDetailViewModel : Spek({
+class FilmDetailViewModelTest : Spek({
 
     group("Film Detail ViewModel") {
 
@@ -43,25 +46,23 @@ class FilmDetailViewModel : Spek({
 
         val movieRepository = Mockito.mock(MovieRepository::class.java)
         val tvRepository = Mockito.mock(TvShowRepository::class.java)
-        val movieViewModel = MovieViewModel(movieRepository)
-        val tvViewModel = MovieViewModel(movieRepository)
-        val observer: Observer<Resource<PagedList<Film>>> = mock()
-        val movieList: PagedList<Film> = mock()
+        val favoriteRepository = Mockito.mock(FavoriteRepository::class.java)
+        val filmDetailViewModel = FilmDetailViewModel(movieRepository, tvRepository, favoriteRepository)
+        val observer: Observer<Resource<Film>> = mock()
 
-        test("Movie ViewModel GetMovieData") {
-            val dummyMovies = Resource.Success(movieList)
-            Mockito.`when`(dummyMovies.data?.size).thenReturn(5)
-            val movies = MutableLiveData<Resource<PagedList<Film>>>()
-            movies.value = dummyMovies
+        test("Film Detail ViewModel LoadDataById Type Movie") {
+            val dummyResultMovies = Resource.Success(FakeMovieRepository.getOneMovieDummyData())
+            val dummyLiveData = MutableLiveData<Resource<Film>>()
+            dummyLiveData.value = dummyResultMovies
 
-            Mockito.`when`(movieRepository.getMovieData()).thenReturn(movies)
-            val moviesResult = movieViewModel.getMovieData().value?.data
-            verify(movieRepository).getMovieData()
-            Assert.assertNotNull(moviesResult)
-            Assert.assertEquals(5, moviesResult?.count())
-
-            movieViewModel.getMovieData().observeForever(observer)
-            verify(observer).onChanged(dummyMovies)
+//            `when`(movieRepository.getMovieDetails(1)).thenReturn(dummyLiveData)
+//            val moviesResult = filmDetailViewModel.loadDataById(1, "Movie").value?.data
+//            verify(movieRepository).getMovieDetails(1)
+//            assertNotNull(moviesResult)
+//            assertEquals("A Star Is Born 1", moviesResult?.title)
+//
+//            filmDetailViewModel.loadDataById(1, "Movie").observeForever(observer)
+//            verify(observer).onChanged(dummyResultMovies)
         }
     }
 })
