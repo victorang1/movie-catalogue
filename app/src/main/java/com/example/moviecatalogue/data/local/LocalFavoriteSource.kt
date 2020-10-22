@@ -1,5 +1,6 @@
 package com.example.moviecatalogue.data.local
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import com.example.moviecatalogue.constant.AppConstant
 import com.example.moviecatalogue.data.local.entity.Favorite
@@ -13,7 +14,13 @@ class LocalFavoriteSource(private val favoriteDao: FavoriteDao) {
     fun getAllTvShows(): DataSource.Factory<Int, Favorite> =
         favoriteDao.getAllFavoritesByType(AppConstant.TV_SHOW)
 
-    fun insertFilm(favoriteFilm: Favorite) = favoriteDao.insertFavorite(favoriteFilm)
+    suspend fun insertFilm(favoriteFilm: Favorite) = favoriteDao.insertFavorite(favoriteFilm)
 
-    fun deleteFromFavorite(favoriteFilm: Favorite) = favoriteDao.deleteFromFavorite(favoriteFilm)
+    suspend fun deleteFromFavorite(favoriteFilm: Favorite) = favoriteDao.deleteFromFavorite(favoriteFilm)
+
+    suspend fun isFavoriteMovie(movieId: Int): Favorite =
+        favoriteDao.isFavoriteFilm(movieId, AppConstant.MOVIE)
+
+    suspend fun isFavoriteTvShow(tvId: Int): Favorite =
+        favoriteDao.isFavoriteFilm(tvId, AppConstant.TV_SHOW)
 }

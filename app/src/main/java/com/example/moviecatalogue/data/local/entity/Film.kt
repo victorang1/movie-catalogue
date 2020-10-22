@@ -4,9 +4,14 @@ import androidx.annotation.NonNull
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(primaryKeys = ["id", "title"])
+@Entity(
+    primaryKeys = ["id", "title"],
+    indices = [Index(value = ["id"], unique = true),
+        Index(value = ["title"])]
+)
 data class Film(
     @NonNull
     val id: Int,

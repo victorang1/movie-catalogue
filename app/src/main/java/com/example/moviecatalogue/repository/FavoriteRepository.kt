@@ -1,5 +1,6 @@
 package com.example.moviecatalogue.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -28,14 +29,19 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
                     .setInitialLoadSizeHint(4)
                     .setPageSize(4)
                     .build()
-                val fromDb = LivePagedListBuilder(localFavoriteSource.getAllMovies(), config).build()
+                val fromDb =
+                    LivePagedListBuilder(localFavoriteSource.getAllMovies(), config).build()
                 result.addSource(fromDb) {
                     result.removeSource(result)
-                    result.value = Resource.Success(it)
+                    result.postValue(Resource.Success(it))
                 }
             } catch (e: Exception) {
-                result.value =
-                    Resource.Error(null, AppConstant.resources.getString(R.string.text_network_error))
+                result.postValue(
+                    Resource.Error(
+                        null,
+                        AppConstant.resources.getString(R.string.text_network_error)
+                    )
+                )
             }
         }
         return result
@@ -51,14 +57,19 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
                     .setInitialLoadSizeHint(4)
                     .setPageSize(4)
                     .build()
-                val fromDb = LivePagedListBuilder(localFavoriteSource.getAllTvShows(), config).build()
+                val fromDb =
+                    LivePagedListBuilder(localFavoriteSource.getAllTvShows(), config).build()
                 result.addSource(fromDb) {
                     result.removeSource(result)
-                    result.value = Resource.Success(it)
+                    result.postValue(Resource.Success(it))
                 }
             } catch (e: Exception) {
-                result.value =
-                    Resource.Error(null, AppConstant.resources.getString(R.string.text_network_error))
+                result.postValue(
+                    Resource.Error(
+                        null,
+                        AppConstant.resources.getString(R.string.text_network_error)
+                    )
+                )
             }
         }
         return result
@@ -69,12 +80,13 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 localFavoriteSource.insertFilm(favorite)
-                result.value = Resource.Success(true)
+                result.postValue(Resource.Success(true))
             } catch (e: Exception) {
-                result.value = Resource.Error(
+                val resources = Resource.Error(
                     false,
                     AppConstant.resources.getString(R.string.text_network_error)
                 )
+                result.postValue(resources)
             }
         }
         return result
@@ -85,12 +97,46 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 localFavoriteSource.deleteFromFavorite(favorite)
-                result.value = Resource.Success(true)
+                result.postValue(Resource.Success(true))
             } catch (e: Exception) {
-                result.value = Resource.Error(
+                val resources = Resource.Error(
                     false,
                     AppConstant.resources.getString(R.string.text_network_error)
                 )
+                result.postValue(resources)
+            }
+        }
+        return result
+    }
+
+    override fun isFavoriteMovie(movieId: Int): LiveData<Resource<Boolean>> {
+        val result = MutableLiveData<Resource<Boolean>>(Resource.Loading(null))
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val movie = localFavoriteSource.isFavoriteMovie(movieId)
+                result.postValue(Resource.Success(movie != null))
+            } catch (e: Exception) {
+                val resources = Resource.Error(
+                    false,
+                    AppConstant.resources.getString(R.string.text_network_error)
+                )
+                result.postValue(resources)
+            }
+        }
+        return result
+    }
+
+    override fun isFavoriteTvShow(tvId: Int): LiveData<Resource<Boolean>> {
+        val result = MutableLiveData<Resource<Boolean>>(Resource.Loading(null))
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val tvShow = localFavoriteSource.isFavoriteTvShow(tvId)
+                result.postValue(Resource.Success(tvShow != null))
+            } catch (e: Exception) {
+                result.postValue(Resource.Error(
+                    false,
+                    AppConstant.resources.getString(R.string.text_network_error)
+                ))
             }
         }
         return result

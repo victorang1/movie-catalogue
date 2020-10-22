@@ -1,6 +1,9 @@
 package com.example.moviecatalogue.utils
 
+import com.example.moviecatalogue.R
 import com.example.moviecatalogue.constant.AppConstant
+import com.example.moviecatalogue.constant.AppConstant.resources
+import com.example.moviecatalogue.data.local.entity.Favorite
 import com.example.moviecatalogue.data.local.entity.Film
 import com.example.moviecatalogue.data.service.ApiConfig.BASE_IMG_PATH
 import com.example.moviecatalogue.data.service.datamodel.GenresItemResponse
@@ -9,6 +12,7 @@ import com.example.moviecatalogue.data.service.datamodel.movie.PopularMovieRespo
 import com.example.moviecatalogue.data.service.datamodel.tv.PopularTvResponse
 import com.example.moviecatalogue.data.service.datamodel.tv.TvDetailResponse
 import java.lang.StringBuilder
+import java.util.*
 
 object ResponseHelper {
 
@@ -71,6 +75,17 @@ object ResponseHelper {
             getGenres(response.genres),
             response.overview,
             AppConstant.TV_SHOW
+        )
+    }
+
+    fun convertToFavorite(film: Film): Favorite {
+        return Favorite(
+            UUID.randomUUID().toString(),
+            film.id,
+            film.filmType,
+            film.image ?: "",
+            film.title,
+            film.category ?: resources.getString(R.string.text_no_category)
         )
     }
 

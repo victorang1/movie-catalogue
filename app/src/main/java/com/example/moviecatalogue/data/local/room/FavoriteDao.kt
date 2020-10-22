@@ -1,5 +1,6 @@
 package com.example.moviecatalogue.data.local.room
 
+import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
 import com.example.moviecatalogue.data.local.entity.Favorite
@@ -11,8 +12,11 @@ interface FavoriteDao {
     fun getAllFavoritesByType(filmType: String): DataSource.Factory<Int, Favorite>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertFavorite(favorite: Favorite)
+    suspend fun insertFavorite(favorite: Favorite)
 
     @Delete
-    fun deleteFromFavorite(favorite: Favorite)
+    suspend fun deleteFromFavorite(favorite: Favorite)
+
+    @Query("SELECT * FROM favorite WHERE filmType=:filmType AND filmId=:id LIMIT 1")
+    suspend fun isFavoriteFilm(id: Int, filmType: String): Favorite
 }

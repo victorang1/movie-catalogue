@@ -121,12 +121,25 @@
                         app:layout_constraintRight_toRightOf="parent"
                         />
 
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_favorite"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_12dp"
+                        android:text="@string/add_to_favorite"
+                        android:textColor="@color/colorWhite"
+                        android:backgroundTint="@color/colorAccent"
+                        app:layout_constraintLeft_toRightOf="@id/iv_thumbnail"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_votes"
+                        />
+
                     <androidx.constraintlayout.widget.Barrier
                         android:id="@+id/barrier"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:barrierDirection="bottom"
-                        app:constraint_referenced_ids="iv_thumbnail,tv_votes"
+                        app:constraint_referenced_ids="iv_thumbnail,btn_favorite"
                         />
 
                     <TextView
@@ -183,16 +196,6 @@
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tv_overview"
-                        />
-
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/fab_favorite"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="@dimen/dimen_20dp"
-                        android:src="@drawable/ic_favorite"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
                         />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.moviecatalogue.di.modules
 
+import com.example.moviecatalogue.repository.IFavoriteRepository
 import com.example.moviecatalogue.repository.IMovieRepository
 import com.example.moviecatalogue.repository.ITvShowRepository
 import com.example.moviecatalogue.ui.detail.FilmDetailViewModel
@@ -20,12 +21,13 @@ val viewModelModule = module {
 
     fun providesFilmDetailViewModel(
         movieRepository: IMovieRepository,
-        tvShowRepository: ITvShowRepository
+        tvShowRepository: ITvShowRepository,
+        favoriteRepository: IFavoriteRepository
     ): FilmDetailViewModel {
-        return FilmDetailViewModel(movieRepository, tvShowRepository)
+        return FilmDetailViewModel(movieRepository, tvShowRepository, favoriteRepository)
     }
 
     viewModel { providesMovieViewModel(get()) }
     viewModel { providesTvShowViewModel(get()) }
-    viewModel { providesFilmDetailViewModel(get(), get()) }
+    viewModel { providesFilmDetailViewModel(get(), get(), get()) }
 }

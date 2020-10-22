@@ -10,4 +10,6 @@ interface IFavoriteRepository {
     fun getAllFavoriteTvs(): LiveData<Resource<PagedList<Favorite>>>
     fun insertFavorite(favorite: Favorite): LiveData<Resource<Boolean>>
     fun deleteFromFavorite(favorite: Favorite): LiveData<Resource<Boolean>>
+    fun isFavoriteMovie(movieId: Int): LiveData<Resource<Boolean>>
+    fun isFavoriteTvShow(tvId: Int): LiveData<Resource<Boolean>>
 }
