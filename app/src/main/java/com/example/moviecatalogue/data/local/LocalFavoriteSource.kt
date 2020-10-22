@@ -1,6 +1,5 @@
 package com.example.moviecatalogue.data.local
 
-import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import com.example.moviecatalogue.constant.AppConstant
 import com.example.moviecatalogue.data.local.entity.Favorite

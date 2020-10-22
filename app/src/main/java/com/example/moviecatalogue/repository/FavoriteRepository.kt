@@ -13,6 +13,7 @@ import com.example.moviecatalogue.data.local.LocalFavoriteSource
 import com.example.moviecatalogue.data.local.entity.Favorite
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -22,20 +23,22 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
     override fun getAllFavoriteMovies(): LiveData<Resource<PagedList<Favorite>>> {
         val result = MediatorLiveData<Resource<PagedList<Favorite>>>()
         result.value = Resource.Loading(null)
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Main).launch {
             try {
-                val config = PagedList.Config.Builder()
-                    .setEnablePlaceholders(false)
-                    .setInitialLoadSizeHint(4)
-                    .setPageSize(4)
-                    .build()
-                val fromDb =
+                val fromDb = async(Dispatchers.IO) {
+                    val config = PagedList.Config.Builder()
+                        .setEnablePlaceholders(false)
+                        .setInitialLoadSizeHint(4)
+                        .setPageSize(4)
+                        .build()
                     LivePagedListBuilder(localFavoriteSource.getAllMovies(), config).build()
-                result.addSource(fromDb) {
+                }
+                result.addSource(fromDb.await()) {
                     result.removeSource(result)
                     result.postValue(Resource.Success(it))
                 }
             } catch (e: Exception) {
+                Log.d("<RESULT>", "getAllFavoriteMovies: " + e.message)
                 result.postValue(
                     Resource.Error(
                         null,
@@ -50,20 +53,22 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
     override fun getAllFavoriteTvs(): LiveData<Resource<PagedList<Favorite>>> {
         val result = MediatorLiveData<Resource<PagedList<Favorite>>>()
         result.value = Resource.Loading(null)
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Main).launch {
             try {
-                val config = PagedList.Config.Builder()
-                    .setEnablePlaceholders(false)
-                    .setInitialLoadSizeHint(4)
-                    .setPageSize(4)
-                    .build()
-                val fromDb =
+                val fromDb = async(Dispatchers.IO) {
+                    val config = PagedList.Config.Builder()
+                        .setEnablePlaceholders(false)
+                        .setInitialLoadSizeHint(4)
+                        .setPageSize(4)
+                        .build()
                     LivePagedListBuilder(localFavoriteSource.getAllTvShows(), config).build()
-                result.addSource(fromDb) {
+                }
+                result.addSource(fromDb.await()) {
                     result.removeSource(result)
                     result.postValue(Resource.Success(it))
                 }
             } catch (e: Exception) {
+                Log.d("<RESULT>", "getAllFavoriteTvs: " + e.message)
                 result.postValue(
                     Resource.Error(
                         null,

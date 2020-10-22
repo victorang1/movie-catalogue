@@ -10,20 +10,19 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.moviecatalogue.R
 import com.example.moviecatalogue.data.local.entity.Favorite
-import com.example.moviecatalogue.data.local.entity.Film
 import com.example.moviecatalogue.databinding.FavoriteItemLayoutBinding
 
 class FavoriteAdapter(val mCallback: FavoriteItemClickCallback) :
-    PagedListAdapter<Film, FavoriteAdapter.FavoriteViewHolder>(DIFF_CALLBACK) {
+    PagedListAdapter<Favorite, FavoriteAdapter.FavoriteViewHolder>(DIFF_CALLBACK) {
 
     companion object {
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Film>() {
-            override fun areItemsTheSame(oldItem: Film, newItem: Film): Boolean {
-                return oldItem.id == newItem.id
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<Favorite>() {
+            override fun areItemsTheSame(oldItem: Favorite, newItem: Favorite): Boolean {
+                return oldItem.favoriteId == newItem.favoriteId
             }
 
             @SuppressLint("DiffUtilEquals")
-            override fun areContentsTheSame(oldItem: Film, newItem: Film): Boolean {
+            override fun areContentsTheSame(oldItem: Favorite, newItem: Favorite): Boolean {
                 return oldItem == newItem
             }
         }

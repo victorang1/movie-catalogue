@@ -1,6 +1,5 @@
 package com.example.moviecatalogue.data.local.room
 
-import androidx.lifecycle.LiveData
 import androidx.paging.DataSource
 import androidx.room.*
 import com.example.moviecatalogue.data.local.entity.Favorite
