@@ -2,7 +2,6 @@ package com.example.repository
 
 import androidx.arch.core.executor.ArchTaskExecutor
 import androidx.arch.core.executor.TaskExecutor
-import androidx.lifecycle.MutableLiveData
 import androidx.paging.DataSource
 import com.example.data.FakeMovieRepository
 import com.example.moviecatalogue.common.Resource
@@ -10,7 +9,6 @@ import com.example.moviecatalogue.data.local.LocalFilmSource
 import com.example.moviecatalogue.data.local.entity.Film
 import com.example.moviecatalogue.data.service.movie.MovieServiceImpl
 import com.example.moviecatalogue.repository.MovieRepository
-import com.example.util.LiveDataTestUtil
 import com.example.util.PagedListUtil
 import org.jetbrains.spek.api.Spek
 import org.junit.Assert.*
@@ -61,14 +59,8 @@ class MovieRepositoryTest : Spek({
         }
 
         test("MovieRepository GetMovieDetails") {
-            val movieData = MutableLiveData<Film>()
-            movieData.value = FakeMovieRepository.getOneMovieDummyData()
-            `when`(localFilmSource.getMovieById(0)).thenReturn(movieData)
-
-            val movie = LiveDataTestUtil.getValue(movieRepository.getMovieDetails(0))
+            movieRepository.getMovieDetails(0)
             verify(localFilmSource).getMovieById(0)
-            assertNotNull(movie?.data)
-            assertEquals("A Star Is Born 1", movie?.data?.title)
         }
     }
 })

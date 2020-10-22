@@ -2,10 +2,7 @@ package com.example.data
 
 import com.example.moviecatalogue.data.local.entity.Film
 import com.example.moviecatalogue.data.service.ApiConfig
-import com.example.moviecatalogue.data.service.datamodel.GenresItemResponse
 import com.example.moviecatalogue.data.service.datamodel.tv.PopularTvItemResponse
-import com.example.moviecatalogue.data.service.datamodel.tv.PopularTvResponse
-import com.example.moviecatalogue.data.service.datamodel.tv.TvDetailResponse
 
 internal object FakeTvRepository {
 
@@ -41,22 +38,5 @@ internal object FakeTvRepository {
             "Spoiled billionaire playboy Oliver Queen is missing and presumed dead when his yacht is lost at sea. He returns five years later a changed man, determined to clean up the city as a hooded vigilante armed with a bow.",
             "TvShow"
         )
-    }
-
-    private fun getTvItemResponseDummyData(): ArrayList<PopularTvItemResponse> {
-        val movies = arrayListOf<PopularTvItemResponse>()
-        for (x in 1..15) {
-            movies.add(
-                PopularTvItemResponse(
-                    x+1,
-                    ApiConfig.BASE_IMG_PATH + "/7D430eqZj8y3oVkLFfsWXGRcpEG.jpg",
-                    "The boys",
-                    927.83,
-                    "19/10/2019",
-                    235,
-                )
-            )
-        }
-        return movies
     }
 }

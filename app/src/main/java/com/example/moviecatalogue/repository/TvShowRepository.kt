@@ -47,8 +47,7 @@ class TvShowRepository(
             override fun loadFromDB(): LiveData<Film> =
                 localFilmSource.getTvShowById(tvId)
 
-            override fun shouldFetch(data: Film?): Boolean =
-                data == null
+            override fun shouldFetch(data: Film?): Boolean = true
 
             override fun createCall(): LiveData<ApiResponse<TvDetailResponse>> =
                 tvService.getTvDetails(tvId)
