@@ -4,11 +4,12 @@ import android.app.SearchManager
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -75,8 +76,8 @@ class FavoriteActivity : AppCompatActivity(), FavoriteItemClickCallback,
     }
 
     private fun setError(isError: Boolean) {
-        mBinding.rvFavorite.visibility = if(isError) View.GONE else View.VISIBLE
-        mBinding.tvMessage.visibility = if(isError) View.VISIBLE else View.GONE
+        mBinding.rvFavorite.visibility = if (isError) View.GONE else View.VISIBLE
+        mBinding.tvMessage.visibility = if (isError) View.VISIBLE else View.GONE
     }
 
     private fun initializeSearchView(menu: Menu) {
@@ -90,7 +91,7 @@ class FavoriteActivity : AppCompatActivity(), FavoriteItemClickCallback,
     }
 
     override fun onRemoveClick(favorite: Favorite) {
-        TODO("Not yet implemented")
+        showRemoveFromFavoriteDialog(favorite)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -147,4 +148,44 @@ class FavoriteActivity : AppCompatActivity(), FavoriteItemClickCallback,
         return true
     }
 
+    private fun showRemoveFromFavoriteDialog(favorite: Favorite) {
+        val mBuilder = AlertDialog.Builder(this, R.style.AlertDialogTheme)
+            .setTitle(getString(R.string.text_confirmation))
+            .setMessage(getString(R.string.text_remove_favorite_dialog))
+            .setPositiveButton(getString(R.string.text_yes)) { _, _ ->
+                mViewModel.removeFromFavorite(favorite).observe(this, Observer { isFavorite ->
+                    when (isFavorite) {
+                        is Resource.Success -> {
+                            mViewModel.setLoading(false)
+                            if (isFavorite.data == true) {
+                                Toast.makeText(
+                                    this,
+                                    getString(R.string.text_remove_from_favorite_success),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                resetShowedData()
+                            } else Toast.makeText(
+                                this,
+                                getString(R.string.text_network_error),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        is Resource.Error -> {
+                            mViewModel.setLoading(false)
+                            Toast.makeText(
+                                this,
+                                getString(R.string.text_network_error),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                        is Resource.Loading -> mViewModel.setLoading(true)
+                    }
+                })
+            }
+            .setNegativeButton(getString(R.string.text_no)) { dialog, _ ->
+                dialog.cancel()
+            }
+        val alertDialog = mBuilder.create()
+        alertDialog.show()
+    }
 }

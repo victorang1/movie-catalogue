@@ -45,7 +45,7 @@ class FavoriteAdapter(val mCallback: FavoriteItemClickCallback) :
         fun bind(favoriteData: Favorite) {
             with(itemBinding) {
                 favorite = favoriteData
-                cvFilm.setOnClickListener { mCallback.onRemoveClick(favoriteData) }
+                btnRemove.setOnClickListener { mCallback.onRemoveClick(favoriteData) }
                 Glide.with(root)
                     .load(favoriteData.image)
                     .apply(RequestOptions.errorOf(R.drawable.ic_error_white))

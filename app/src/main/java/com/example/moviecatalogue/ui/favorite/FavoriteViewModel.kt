@@ -35,4 +35,7 @@ class FavoriteViewModel(private val favoriteRepository: IFavoriteRepository) : V
             AppConstant.MOVIE -> favoriteRepository.searchMovies(title)
             else -> favoriteRepository.searchTvShows(title)
         }
+
+    fun removeFromFavorite(favorite: Favorite): LiveData<Resource<Boolean>> =
+        favoriteRepository.deleteFromFavorite(favorite)
 }

@@ -131,18 +131,4 @@ class FilmDetailActivity : AppCompatActivity() {
         val alertDialog = mBuilder.create()
         alertDialog.show()
     }
-
-//    private fun showRemoveFromFavoriteDialog() {
-//        val mBuilder = AlertDialog.Builder(this, R.style.AlertDialogTheme)
-//            .setTitle(getString(R.string.text_confirmation))
-//            .setMessage(getString(R.string.text_remove_favorite_dialog))
-//            .setPositiveButton(getString(R.string.text_yes)) { _, _ ->
-//                mViewModel.removeFromFavorite(mBinding.film.id)
-//            }
-//            .setNegativeButton(getString(R.string.text_no)) { dialog, _ ->
-//                dialog.cancel()
-//            }
-//        val alertDialog = mBuilder.create()
-//        alertDialog.show()
-//    }
 }
