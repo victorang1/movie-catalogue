@@ -21,20 +21,22 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
     override fun getAllFavoriteMovies(): LiveData<Resource<PagedList<Favorite>>> {
         val result = MediatorLiveData<Resource<PagedList<Favorite>>>()
         result.value = Resource.Loading(null)
-        try {
-            val config = PagedList.Config.Builder()
-                .setEnablePlaceholders(false)
-                .setInitialLoadSizeHint(4)
-                .setPageSize(4)
-                .build()
-            val fromDb = LivePagedListBuilder(localFavoriteSource.getAllMovies(), config).build()
-            result.addSource(fromDb) {
-                result.removeSource(result)
-                result.value = Resource.Success(it)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4)
+                    .setPageSize(4)
+                    .build()
+                val fromDb = LivePagedListBuilder(localFavoriteSource.getAllMovies(), config).build()
+                result.addSource(fromDb) {
+                    result.removeSource(result)
+                    result.value = Resource.Success(it)
+                }
+            } catch (e: Exception) {
+                result.value =
+                    Resource.Error(null, AppConstant.resources.getString(R.string.text_network_error))
             }
-        } catch (e: Exception) {
-            result.value =
-                Resource.Error(null, AppConstant.resources.getString(R.string.text_network_error))
         }
         return result
     }
@@ -42,20 +44,22 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
     override fun getAllFavoriteTvs(): LiveData<Resource<PagedList<Favorite>>> {
         val result = MediatorLiveData<Resource<PagedList<Favorite>>>()
         result.value = Resource.Loading(null)
-        try {
-            val config = PagedList.Config.Builder()
-                .setEnablePlaceholders(false)
-                .setInitialLoadSizeHint(4)
-                .setPageSize(4)
-                .build()
-            val fromDb = LivePagedListBuilder(localFavoriteSource.getAllTvShows(), config).build()
-            result.addSource(fromDb) {
-                result.removeSource(result)
-                result.value = Resource.Success(it)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val config = PagedList.Config.Builder()
+                    .setEnablePlaceholders(false)
+                    .setInitialLoadSizeHint(4)
+                    .setPageSize(4)
+                    .build()
+                val fromDb = LivePagedListBuilder(localFavoriteSource.getAllTvShows(), config).build()
+                result.addSource(fromDb) {
+                    result.removeSource(result)
+                    result.value = Resource.Success(it)
+                }
+            } catch (e: Exception) {
+                result.value =
+                    Resource.Error(null, AppConstant.resources.getString(R.string.text_network_error))
             }
-        } catch (e: Exception) {
-            result.value =
-                Resource.Error(null, AppConstant.resources.getString(R.string.text_network_error))
         }
         return result
     }

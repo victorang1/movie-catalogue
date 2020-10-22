@@ -13,7 +13,7 @@ import com.example.moviecatalogue.databinding.ActivityFilmDetailBinding
 import com.example.moviecatalogue.data.local.entity.Film
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class FilmDetailActivity : AppCompatActivity() {
+class FilmDetailActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
         const val FILM_ID = "filmId"
@@ -26,8 +26,9 @@ class FilmDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_film_detail)
-        getResult()
+        initializeListener()
         initializeObserver()
+        getResult()
     }
 
     private fun getResult() {
@@ -65,9 +66,17 @@ class FilmDetailActivity : AppCompatActivity() {
             .into(mBinding.ivThumbnail)
     }
 
+    private fun initializeListener() {
+
+    }
+
     private fun initializeObserver() {
         mViewModel.getLoadingStatus().observe(this, Observer { isLoading ->
             mBinding.isLoading = isLoading
         })
+    }
+
+    override fun onClick(v: View?) {
+        TODO("Not yet implemented")
     }
 }
