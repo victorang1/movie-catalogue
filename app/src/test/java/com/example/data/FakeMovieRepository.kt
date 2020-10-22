@@ -2,10 +2,6 @@ package com.example.data
 
 import com.example.moviecatalogue.data.local.entity.Film
 import com.example.moviecatalogue.data.service.ApiConfig.BASE_IMG_PATH
-import com.example.moviecatalogue.data.service.datamodel.GenresItemResponse
-import com.example.moviecatalogue.data.service.datamodel.movie.MovieDetailResponse
-import com.example.moviecatalogue.data.service.datamodel.movie.PopularMovieItemResponse
-import com.example.moviecatalogue.data.service.datamodel.movie.PopularMovieResponse
 
 internal object FakeMovieRepository {
 
@@ -15,7 +11,7 @@ internal object FakeMovieRepository {
             movies.add(
                 Film(
                     x,
-                    BASE_IMG_PATH + "/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg",
+                    "$BASE_IMG_PATH/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg",
                     "A Star Is Born $x",
                     927.83,
                     235,
@@ -32,7 +28,7 @@ internal object FakeMovieRepository {
     fun getOneMovieDummyData(): Film {
         return Film(
                     1,
-                    BASE_IMG_PATH + "/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg",
+            "$BASE_IMG_PATH/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg",
                     "A Star Is Born 1",
                     927.83,
                     235,
@@ -49,7 +45,7 @@ internal object FakeMovieRepository {
             movies.add(
                 Film(
                     x,
-                    BASE_IMG_PATH + "/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg",
+                    "$BASE_IMG_PATH/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg",
                     "A Star Is Born $x",
                     927.83,
                     235,
@@ -61,41 +57,5 @@ internal object FakeMovieRepository {
             )
         }
         return movies
-    }
-
-    private fun getMovieItemResponseDummyData(): ArrayList<PopularMovieItemResponse> {
-        val movies = arrayListOf<PopularMovieItemResponse>()
-        for (x in 1..15) {
-            movies.add(
-                PopularMovieItemResponse(
-                    x + 1,
-                    BASE_IMG_PATH + "/7D430eqZj8y3oVkLFfsWXGRcpEG.jpg",
-                    "2067",
-                    927.83,
-                    "19/10/2019",
-                    235,
-                )
-            )
-        }
-        return movies
-    }
-
-    fun getPopularMovieResponse(): PopularMovieResponse {
-        return PopularMovieResponse(
-            results = getMovieItemResponseDummyData()
-        )
-    }
-
-    fun getMovieDetailResponse(): MovieDetailResponse {
-        return MovieDetailResponse(
-            1,
-            BASE_IMG_PATH + "/7D430eqZj8y3oVkLFfsWXGRcpEG.jpg",
-            "2067",
-            927.83,
-            "this is overview",
-            "19/10/2019",
-            listOf(GenresItemResponse("Horror"), GenresItemResponse("Comedy")),
-            235
-        )
     }
 }

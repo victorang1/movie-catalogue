@@ -50,7 +50,7 @@ class FavoriteRepositoryTest : Spek({
 
         test("Favorite Repository GetAllFavoriteMovies") {
             val dataSource = Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, Favorite>
-            Mockito.`when`(localFavoriteSource.getAllMovies()).thenReturn(dataSource)
+            `when`(localFavoriteSource.getAllMovies()).thenReturn(dataSource)
             runBlocking {
                 favoriteRepository.getAllFavoriteMovies()
 
@@ -66,7 +66,7 @@ class FavoriteRepositoryTest : Spek({
 
         test("Favorite Repository getAllFavoriteTvs") {
             val dataSource = Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, Favorite>
-            Mockito.`when`(localFavoriteSource.getAllTvShows()).thenReturn(dataSource)
+            `when`(localFavoriteSource.getAllTvShows()).thenReturn(dataSource)
             runBlocking {
                 favoriteRepository.getAllFavoriteTvs()
 
@@ -106,7 +106,7 @@ class FavoriteRepositoryTest : Spek({
 
         test("Favorite Repository Search Movies") {
             val dataSource = Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, Favorite>
-            Mockito.`when`(localFavoriteSource.getFilteredMovies("test")).thenReturn(dataSource)
+            `when`(localFavoriteSource.getFilteredMovies("test")).thenReturn(dataSource)
             runBlocking {
                 favoriteRepository.searchMovies("test")
 
@@ -122,7 +122,7 @@ class FavoriteRepositoryTest : Spek({
 
         test("Favorite Repository Search Tv Show") {
             val dataSource = Mockito.mock(DataSource.Factory::class.java) as DataSource.Factory<Int, Favorite>
-            Mockito.`when`(localFavoriteSource.getFilteredTvShow("test")).thenReturn(dataSource)
+            `when`(localFavoriteSource.getFilteredTvShow("test")).thenReturn(dataSource)
             runBlocking {
                 favoriteRepository.searchTvShows("test")
 

@@ -10,7 +10,6 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.rule.ActivityTestRule
 import com.example.moviecatalogue.ui.home.MainActivity
 import com.example.moviecatalogue.utils.EspressoIdlingResource
-import org.hamcrest.Matchers.not
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule

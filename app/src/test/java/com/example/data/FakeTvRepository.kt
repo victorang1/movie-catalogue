@@ -59,23 +59,4 @@ internal object FakeTvRepository {
         }
         return movies
     }
-
-    fun getPopularMovieResponse(): PopularTvResponse {
-        return PopularTvResponse(
-            results = getTvItemResponseDummyData()
-        )
-    }
-
-    fun getTvDetailResponse(): TvDetailResponse {
-        return TvDetailResponse(
-            1,
-            ApiConfig.BASE_IMG_PATH + "/7D430eqZj8y3oVkLFfsWXGRcpEG.jpg",
-            "The Boys",
-            927.83,
-            "this is overview",
-            "19/10/2019",
-            listOf(GenresItemResponse("Horror"), GenresItemResponse("Comedy")),
-            235
-        )
-    }
 }

@@ -6,13 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.paging.PagedList
 import com.example.data.FakeFavoriteViewModel
-import com.example.data.FakeFilmDetailViewModel
 import com.example.data.FakeMovieRepository
 import com.example.moviecatalogue.common.Resource
 import com.example.moviecatalogue.data.local.entity.Favorite
 import com.example.moviecatalogue.repository.FavoriteRepository
-import com.example.moviecatalogue.repository.MovieRepository
-import com.example.moviecatalogue.repository.TvShowRepository
 import com.example.moviecatalogue.utils.ResponseHelper
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify

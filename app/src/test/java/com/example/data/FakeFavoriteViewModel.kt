@@ -6,7 +6,6 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import androidx.paging.PagedList
 import com.example.moviecatalogue.common.Resource
-import com.example.moviecatalogue.constant.AppConstant
 import com.example.moviecatalogue.data.local.entity.Favorite
 import com.example.moviecatalogue.repository.IFavoriteRepository
 
