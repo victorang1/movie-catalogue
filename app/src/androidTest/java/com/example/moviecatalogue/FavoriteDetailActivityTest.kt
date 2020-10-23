@@ -33,6 +33,11 @@ class FavoriteDetailActivityTest {
     @Test
     fun recyclerViewTest() {
         if (getRVCount() ?: -1 > 0) {
+            Espresso.onView(ViewMatchers.withId(R.id.rv_favorite)).check(
+                ViewAssertions.matches(
+                    ViewMatchers.isDisplayed()
+                )
+            )
             Espresso.onView(ViewMatchers.withId(R.id.rv_favorite)).perform(
                 RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(
                     0,
