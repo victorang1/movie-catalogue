@@ -13,7 +13,9 @@ object FakeFavoriteRepository {
             "Movie",
             ApiConfig.BASE_IMG_PATH + "/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg",
             "A Star Is Born 1",
-            "Drama, Romance, Music"
+            "Drama, Romance, Music",
+            "23/10/2020",
+            "This is example of overview"
         )
     }
 
@@ -27,7 +29,9 @@ object FakeFavoriteRepository {
                     "Movie",
                     ApiConfig.BASE_IMG_PATH + "/mY7SeH4HFFxW1hiI6cWuwCRKptN.jpg",
                     "A Star Is Born 1",
-                    "Drama, Romance, Music"
+                    "Drama, Romance, Music",
+                    "23/10/2020",
+                    "This is example of overview"
                 )
             )
         }

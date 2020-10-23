@@ -12,12 +12,10 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.rule.ActivityTestRule
 import com.example.moviecatalogue.ui.home.MainActivity
 import com.example.moviecatalogue.utils.EspressoIdlingResource
-import org.hamcrest.Matchers.greaterThan
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-
 
 class FavoriteActivityTest {
 

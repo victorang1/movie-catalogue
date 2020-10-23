@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.detailfavorite.FavoriteDetailActivity"></activity>
+        <activity android:name=".ui.detailfavorite.FavoriteDetailActivity" />
         <activity android:name=".ui.favorite.FavoriteActivity" />
         <activity
             android:name=".ui.splash.SplashScreenActivity"

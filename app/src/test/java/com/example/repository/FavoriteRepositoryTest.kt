@@ -191,10 +191,10 @@ class FavoriteRepositoryTest : Spek({
                 val favoriteData = MutableLiveData<Boolean>()
                 favoriteData.value = true
                 val dummyFavorite = FakeFavoriteRepository.getOneFavoriteDummyData()
-                `when`(localFavoriteSource.isFavoriteMovie(1)).thenReturn(dummyFavorite)
+                `when`(localFavoriteSource.getFavoriteMovieById(1)).thenReturn(dummyFavorite)
 
                 val result = LiveDataTestUtil.getValue(favoriteRepository.isFavoriteMovie(1))
-                Mockito.verify(localFavoriteSource).isFavoriteMovie(1)
+                Mockito.verify(localFavoriteSource).getFavoriteMovieById(1)
                 Assert.assertNotNull(result?.data)
                 Assert.assertEquals(true, result?.data)
             }
@@ -205,10 +205,38 @@ class FavoriteRepositoryTest : Spek({
                 val favoriteData = MutableLiveData<Boolean>()
                 favoriteData.value = true
                 val dummyFavorite = FakeFavoriteRepository.getOneFavoriteDummyData()
-                `when`(localFavoriteSource.isFavoriteTvShow(1)).thenReturn(dummyFavorite)
+                `when`(localFavoriteSource.getFavoriteTvShowById(1)).thenReturn(dummyFavorite)
 
                 val result = LiveDataTestUtil.getValue(favoriteRepository.isFavoriteTvShow(1))
-                Mockito.verify(localFavoriteSource).isFavoriteTvShow(1)
+                Mockito.verify(localFavoriteSource).getFavoriteTvShowById(1)
+                Assert.assertNotNull(result?.data)
+                Assert.assertEquals(true, result?.data)
+            }
+        }
+
+        test("Favorite Repository getFavoriteMovieById") {
+            CoroutineScope(Dispatchers.IO).launch {
+                val favoriteData = MutableLiveData<Boolean>()
+                favoriteData.value = true
+                val dummyFavorite = FakeFavoriteRepository.getOneFavoriteDummyData()
+                `when`(localFavoriteSource.getFavoriteTvShowById(1)).thenReturn(dummyFavorite)
+
+                val result = LiveDataTestUtil.getValue(favoriteRepository.getFavoriteMovieById(1))
+                Mockito.verify(localFavoriteSource).getFavoriteTvShowById(1)
+                Assert.assertNotNull(result?.data)
+                Assert.assertEquals(true, result?.data)
+            }
+        }
+
+        test("Favorite Repository getFavoriteTvShowById") {
+            CoroutineScope(Dispatchers.IO).launch {
+                val favoriteData = MutableLiveData<Boolean>()
+                favoriteData.value = true
+                val dummyFavorite = FakeFavoriteRepository.getOneFavoriteDummyData()
+                `when`(localFavoriteSource.getFavoriteTvShowById(1)).thenReturn(dummyFavorite)
+
+                val result = LiveDataTestUtil.getValue(favoriteRepository.getFavoriteTvShowById(1))
+                Mockito.verify(localFavoriteSource).getFavoriteTvShowById(1)
                 Assert.assertNotNull(result?.data)
                 Assert.assertEquals(true, result?.data)
             }
