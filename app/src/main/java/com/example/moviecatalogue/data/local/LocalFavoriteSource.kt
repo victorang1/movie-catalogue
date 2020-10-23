@@ -23,9 +23,9 @@ class LocalFavoriteSource(private val favoriteDao: FavoriteDao) {
 
     suspend fun deleteFromFavorite(favoriteFilm: Favorite) = favoriteDao.deleteFromFavorite(favoriteFilm)
 
-    suspend fun isFavoriteMovie(movieId: Int): Favorite =
-        favoriteDao.isFavoriteFilm(movieId, AppConstant.MOVIE)
+    suspend fun getFavoriteMovieById(movieId: Int): Favorite =
+        favoriteDao.getFavoriteFilm(movieId, AppConstant.MOVIE)
 
-    suspend fun isFavoriteTvShow(tvId: Int): Favorite =
-        favoriteDao.isFavoriteFilm(tvId, AppConstant.TV_SHOW)
+    suspend fun getFavoriteTvShowById(tvId: Int): Favorite =
+        favoriteDao.getFavoriteFilm(tvId, AppConstant.TV_SHOW)
 }

@@ -104,6 +104,46 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
         return result
     }
 
+    override fun getFavoriteMovieById(filmId: Int): LiveData<Resource<Favorite>> {
+        EspressoIdlingResource.increment()
+        val result = MutableLiveData<Resource<Favorite>>(Resource.Loading(null))
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val movie = localFavoriteSource.getFavoriteMovieById(filmId)
+                result.postValue(Resource.Success(movie))
+                EspressoIdlingResource.decrement()
+            } catch (e: Exception) {
+                val resources = Resource.Error<Favorite>(
+                    null,
+                    AppConstant.resources.getString(R.string.text_network_error)
+                )
+                result.postValue(resources)
+                EspressoIdlingResource.decrement()
+            }
+        }
+        return result
+    }
+
+    override fun getFavoriteTvShowById(filmId: Int): LiveData<Resource<Favorite>> {
+        EspressoIdlingResource.increment()
+        val result = MutableLiveData<Resource<Favorite>>(Resource.Loading(null))
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val movie = localFavoriteSource.getFavoriteTvShowById(filmId)
+                result.postValue(Resource.Success(movie))
+                EspressoIdlingResource.decrement()
+            } catch (e: Exception) {
+                val resources = Resource.Error<Favorite>(
+                    null,
+                    AppConstant.resources.getString(R.string.text_network_error)
+                )
+                result.postValue(resources)
+                EspressoIdlingResource.decrement()
+            }
+        }
+        return result
+    }
+
     override fun deleteFromFavorite(favorite: Favorite): LiveData<Resource<Boolean>> {
         EspressoIdlingResource.increment()
         val result = MutableLiveData<Resource<Boolean>>(Resource.Loading(null))
@@ -129,7 +169,7 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
         val result = MutableLiveData<Resource<Boolean>>(Resource.Loading(null))
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val movie = localFavoriteSource.isFavoriteMovie(movieId)
+                val movie = localFavoriteSource.getFavoriteMovieById(movieId)
                 result.postValue(Resource.Success(movie != null))
                 EspressoIdlingResource.decrement()
             } catch (e: Exception) {
@@ -149,14 +189,16 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
         val result = MutableLiveData<Resource<Boolean>>(Resource.Loading(null))
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val tvShow = localFavoriteSource.isFavoriteTvShow(tvId)
+                val tvShow = localFavoriteSource.getFavoriteTvShowById(tvId)
                 result.postValue(Resource.Success(tvShow != null))
                 EspressoIdlingResource.decrement()
             } catch (e: Exception) {
-                result.postValue(Resource.Error(
-                    false,
-                    AppConstant.resources.getString(R.string.text_network_error)
-                ))
+                result.postValue(
+                    Resource.Error(
+                        false,
+                        AppConstant.resources.getString(R.string.text_network_error)
+                    )
+                )
                 EspressoIdlingResource.decrement()
             }
         }
@@ -175,7 +217,10 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
                         .setInitialLoadSizeHint(4)
                         .setPageSize(4)
                         .build()
-                    LivePagedListBuilder(localFavoriteSource.getFilteredMovies(title), config).build()
+                    LivePagedListBuilder(
+                        localFavoriteSource.getFilteredMovies(title),
+                        config
+                    ).build()
                 }
                 result.addSource(fromDb.await()) {
                     result.removeSource(result)
@@ -207,7 +252,10 @@ class FavoriteRepository(private val localFavoriteSource: LocalFavoriteSource) :
                         .setInitialLoadSizeHint(4)
                         .setPageSize(4)
                         .build()
-                    LivePagedListBuilder(localFavoriteSource.getFilteredTvShow(title), config).build()
+                    LivePagedListBuilder(
+                        localFavoriteSource.getFilteredTvShow(title),
+                        config
+                    ).build()
                 }
                 result.addSource(fromDb.await()) {
                     result.removeSource(result)

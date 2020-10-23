@@ -85,7 +85,9 @@ object ResponseHelper {
             film.filmType,
             film.image ?: "",
             film.title,
-            film.category ?: resources.getString(R.string.text_no_category)
+            film.category ?: resources.getString(R.string.text_no_category),
+            film.releaseDate ?: "",
+            film.overview ?: ""
         )
     }
 

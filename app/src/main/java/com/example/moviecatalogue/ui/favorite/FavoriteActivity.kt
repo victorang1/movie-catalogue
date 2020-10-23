@@ -2,6 +2,7 @@ package com.example.moviecatalogue.ui.favorite
 
 import android.app.SearchManager
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -18,6 +19,9 @@ import com.example.moviecatalogue.common.Resource
 import com.example.moviecatalogue.constant.AppConstant
 import com.example.moviecatalogue.data.local.entity.Favorite
 import com.example.moviecatalogue.databinding.ActivityFavoriteBinding
+import com.example.moviecatalogue.ui.detailfavorite.FavoriteDetailActivity
+import com.example.moviecatalogue.ui.detailfavorite.FavoriteDetailActivity.Companion.SELECTED_ID
+import com.example.moviecatalogue.ui.detailfavorite.FavoriteDetailActivity.Companion.SELECTED_TYPE
 import org.koin.android.ext.android.inject
 
 class FavoriteActivity : AppCompatActivity(), FavoriteItemClickCallback,
@@ -93,6 +97,13 @@ class FavoriteActivity : AppCompatActivity(), FavoriteItemClickCallback,
 
     override fun onRemoveClick(favorite: Favorite) {
         showRemoveFromFavoriteDialog(favorite)
+    }
+
+    override fun onItemClick(favorite: Favorite) {
+        val intent = Intent(this@FavoriteActivity, FavoriteDetailActivity::class.java)
+        intent.putExtra(SELECTED_ID, favorite.filmId)
+        intent.putExtra(SELECTED_TYPE, favorite.filmType)
+        startActivity(intent)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

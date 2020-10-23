@@ -27,5 +27,9 @@ data class Favorite(
 
     val title: String,
 
-    val category: String
+    val category: String,
+
+    val releaseDate: String,
+
+    val overview: String
 )

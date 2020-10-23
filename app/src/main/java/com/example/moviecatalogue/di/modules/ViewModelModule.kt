@@ -4,6 +4,7 @@ import com.example.moviecatalogue.repository.IFavoriteRepository
 import com.example.moviecatalogue.repository.IMovieRepository
 import com.example.moviecatalogue.repository.ITvShowRepository
 import com.example.moviecatalogue.ui.detail.FilmDetailViewModel
+import com.example.moviecatalogue.ui.detailfavorite.FavoriteDetailViewModel
 import com.example.moviecatalogue.ui.favorite.FavoriteViewModel
 import com.example.moviecatalogue.ui.movie.MovieViewModel
 import com.example.moviecatalogue.ui.tvshow.TvShowViewModel
@@ -32,8 +33,13 @@ val viewModelModule = module {
         return FavoriteViewModel(favoriteRepository)
     }
 
+    fun providesFavoriteDetailViewModel(favoriteRepository: IFavoriteRepository): FavoriteDetailViewModel {
+        return FavoriteDetailViewModel(favoriteRepository)
+    }
+
     viewModel { providesMovieViewModel(get()) }
     viewModel { providesTvShowViewModel(get()) }
     viewModel { providesFilmDetailViewModel(get(), get(), get()) }
     viewModel { providesFavoriteViewModel(get()) }
+    viewModel { providesFavoriteDetailViewModel(get()) }
 }
