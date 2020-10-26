@@ -2,7 +2,7 @@ package com.example.moviecatalogue.di.modules
 
 import android.content.Context
 import android.content.res.Resources
-import com.example.moviecatalogue.service.ApiConfig
+import com.example.moviecatalogue.data.service.ApiConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit

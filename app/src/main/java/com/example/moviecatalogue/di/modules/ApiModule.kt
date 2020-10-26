@@ -1,11 +1,11 @@
 package com.example.moviecatalogue.di.modules
 
-import com.example.moviecatalogue.service.movie.MovieEndpoint
-import com.example.moviecatalogue.service.movie.MovieService
-import com.example.moviecatalogue.service.movie.MovieServiceImpl
-import com.example.moviecatalogue.service.tv.TvEndpoint
-import com.example.moviecatalogue.service.tv.TvService
-import com.example.moviecatalogue.service.tv.TvServiceImpl
+import com.example.moviecatalogue.data.service.movie.MovieEndpoint
+import com.example.moviecatalogue.data.service.movie.MovieService
+import com.example.moviecatalogue.data.service.movie.MovieServiceImpl
+import com.example.moviecatalogue.data.service.tv.TvEndpoint
+import com.example.moviecatalogue.data.service.tv.TvService
+import com.example.moviecatalogue.data.service.tv.TvServiceImpl
 import org.koin.dsl.module
 import retrofit2.Retrofit
 

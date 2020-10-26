@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_search"
+        android:icon="@drawable/ic_search"
+        app:actionViewClass="android.widget.SearchView"
+        android:title="@string/search"
+        app:showAsAction="always|collapseActionView" />
+
+    <item
+        android:id="@+id/menu_movie"
+        android:icon="@drawable/ic_favorite"
+        android:title="@string/text_movies" />
+
+    <item
+        android:id="@+id/menu_tv_shows"
+        android:icon="@drawable/ic_favorite"
+        android:title="@string/text_tv_shows" />
+
+</menu>

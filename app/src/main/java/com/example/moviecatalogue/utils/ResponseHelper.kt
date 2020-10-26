@@ -1,13 +1,18 @@
 package com.example.moviecatalogue.utils
 
-import com.example.moviecatalogue.model.Film
-import com.example.moviecatalogue.service.ApiConfig.BASE_IMG_PATH
-import com.example.moviecatalogue.service.datamodel.GenresItemResponse
-import com.example.moviecatalogue.service.datamodel.movie.MovieDetailResponse
-import com.example.moviecatalogue.service.datamodel.movie.PopularMovieResponse
-import com.example.moviecatalogue.service.datamodel.tv.PopularTvResponse
-import com.example.moviecatalogue.service.datamodel.tv.TvDetailResponse
+import com.example.moviecatalogue.R
+import com.example.moviecatalogue.constant.AppConstant
+import com.example.moviecatalogue.constant.AppConstant.resources
+import com.example.moviecatalogue.data.local.entity.Favorite
+import com.example.moviecatalogue.data.local.entity.Film
+import com.example.moviecatalogue.data.service.ApiConfig.BASE_IMG_PATH
+import com.example.moviecatalogue.data.service.datamodel.GenresItemResponse
+import com.example.moviecatalogue.data.service.datamodel.movie.MovieDetailResponse
+import com.example.moviecatalogue.data.service.datamodel.movie.PopularMovieResponse
+import com.example.moviecatalogue.data.service.datamodel.tv.PopularTvResponse
+import com.example.moviecatalogue.data.service.datamodel.tv.TvDetailResponse
 import java.lang.StringBuilder
+import java.util.*
 
 object ResponseHelper {
 
@@ -17,10 +22,11 @@ object ResponseHelper {
             val film = Film(
                 itemResponse.id,
                 BASE_IMG_PATH + itemResponse.posterPath,
-                itemResponse.title,
-                itemResponse.popularity,
-                itemResponse.voteCount,
-                itemResponse.releaseDate
+                itemResponse.title ?: "",
+                itemResponse.popularity ?: 0.0,
+                itemResponse.voteCount ?: 0,
+                itemResponse.releaseDate ?: "",
+                AppConstant.MOVIE
             )
             films.add(film)
         }
@@ -33,10 +39,11 @@ object ResponseHelper {
             val film = Film(
                 itemResponse.id,
                 BASE_IMG_PATH + itemResponse.posterPath,
-                itemResponse.title,
-                itemResponse.popularity,
-                itemResponse.voteCount,
-                itemResponse.releaseDate
+                itemResponse.title ?: "",
+                itemResponse.popularity ?: 0.0,
+                itemResponse.voteCount ?: 0,
+                itemResponse.releaseDate ?: "",
+                AppConstant.TV_SHOW
             )
             films.add(film)
         }
@@ -47,12 +54,13 @@ object ResponseHelper {
         return Film(
             response.id,
             BASE_IMG_PATH + response.posterPath,
-            response.title,
+            response.title ?: "",
             response.popularity,
             response.voteCount,
             response.release_date,
             getGenres(response.genres),
-            response.overview
+            response.overview,
+            AppConstant.MOVIE
         )
     }
 
@@ -60,12 +68,26 @@ object ResponseHelper {
         return Film(
             response.id,
             BASE_IMG_PATH + response.posterPath,
-            response.title,
+            response.title ?: "",
             response.popularity,
             response.voteCount,
             response.release_date,
             getGenres(response.genres),
-            response.overview
+            response.overview,
+            AppConstant.TV_SHOW
+        )
+    }
+
+    fun convertToFavorite(film: Film): Favorite {
+        return Favorite(
+            UUID.randomUUID().toString(),
+            film.id,
+            film.filmType,
+            film.image ?: "",
+            film.title,
+            film.category ?: resources.getString(R.string.text_no_category),
+            film.releaseDate ?: "",
+            film.overview ?: ""
         )
     }
 
