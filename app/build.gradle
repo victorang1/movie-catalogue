@@ -6,7 +6,7 @@ apply plugin: 'de.mannodermaus.android-junit5'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.moviecatalogue"
@@ -70,9 +70,8 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-beta01"
 
-    implementation "androidx.paging:paging-runtime:$paging_version"
+    implementation "androidx.paging:paging-runtime-ktx:$paging_version"
 
     testImplementation "junit:junit:$junit_version"
     androidTestImplementation "junit:junit:$junit_version"

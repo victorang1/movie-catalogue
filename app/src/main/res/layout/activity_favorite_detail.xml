@@ -25,121 +25,123 @@
             tools:context=".ui.detail.FilmDetailActivity"
             >
 
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="@dimen/dimen_12dp"
                 >
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <ImageView
+                    android:id="@+id/iv_thumbnail"
+                    android:layout_width="@dimen/large_img_width"
+                    android:layout_height="@dimen/large_img_height"
+                    android:scaleType="fitXY"
+                    android:adjustViewBounds="true"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:contentDescription="@string/text_movie_thumbnail" />
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_8dp"
+                    android:layout_marginStart="@dimen/dimen_36dp"
+                    android:layout_marginEnd="@dimen/dimen_36dp"
+                    android:textColor="@color/colorAccent"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/text_24sp"
+                    android:fontFamily="serif"
+                    android:text="@{favorite.title}"
+                    tools:text="Avenger: Infinity Wars"
+                    app:layout_constraintTop_toBottomOf="@id/iv_thumbnail"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_release"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_12dp"
+                    android:layout_marginStart="@dimen/dimen_12dp"
+                    android:layout_marginEnd="@dimen/dimen_8dp"
+                    app:drawableStartCompat="@drawable/ic_calendar"
+                    android:drawablePadding="@dimen/dimen_8dp"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="@dimen/text_20sp"
+                    android:fontFamily="serif"
+                    android:text="@{favorite.releaseDate}"
+                    tools:text="23 October 2020"
+                    app:layout_constraintTop_toBottomOf="@id/tv_title"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_12dp"
+                    android:layout_marginStart="@dimen/dimen_36dp"
+                    android:layout_marginEnd="@dimen/dimen_36dp"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_20sp"
+                    android:fontFamily="serif"
+                    android:text="@{favorite.category}"
+                    tools:text="Drama, Romance, Fantasy"
+                    app:layout_constraintTop_toBottomOf="@id/tv_release"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_overview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_24dp"
+                    android:text="@string/text_overview"
+                    android:textSize="@dimen/text_24sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintTop_toBottomOf="@id/tv_category"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_overview_display"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/dimen_4dp"
+                    android:text="@{favorite.overview}"
+                    android:textSize="@dimen/text_20sp"
+                    android:textColor="@color/colorPrimary"
+                    tools:text="Test ini overview"
+                    app:layout_constraintTop_toBottomOf="@id/tv_overview"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    />
+
+                <androidx.constraintlayout.widget.Group
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:visibility="@{isLoading ? View.GONE : View.VISIBLE}"
-                    android:padding="@dimen/dimen_12dp"
-                    >
-
-                    <ImageView
-                        android:id="@+id/iv_thumbnail"
-                        android:layout_width="@dimen/large_img_width"
-                        android:layout_height="@dimen/large_img_height"
-                        android:scaleType="fitXY"
-                        android:adjustViewBounds="true"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        android:contentDescription="@string/text_movie_thumbnail" />
-
-                    <TextView
-                        android:id="@+id/tv_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_8dp"
-                        android:layout_marginStart="@dimen/dimen_36dp"
-                        android:layout_marginEnd="@dimen/dimen_36dp"
-                        android:textColor="@color/colorAccent"
-                        android:textStyle="bold"
-                        android:textSize="@dimen/text_24sp"
-                        android:fontFamily="serif"
-                        android:text="@{favorite.title}"
-                        tools:text="Avenger: Infinity Wars"
-                        app:layout_constraintTop_toBottomOf="@id/iv_thumbnail"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        />
-
-                    <TextView
-                        android:id="@+id/tv_release"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_12dp"
-                        android:layout_marginStart="@dimen/dimen_12dp"
-                        android:layout_marginEnd="@dimen/dimen_8dp"
-                        app:drawableStartCompat="@drawable/ic_calendar"
-                        android:drawablePadding="@dimen/dimen_8dp"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="@dimen/text_20sp"
-                        android:fontFamily="serif"
-                        android:text="@{favorite.releaseDate}"
-                        tools:text="23 October 2020"
-                        app:layout_constraintTop_toBottomOf="@id/tv_title"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        />
-
-                    <TextView
-                        android:id="@+id/tv_category"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_12dp"
-                        android:layout_marginStart="@dimen/dimen_36dp"
-                        android:layout_marginEnd="@dimen/dimen_36dp"
-                        android:textColor="@color/colorPrimary"
-                        android:textSize="@dimen/text_20sp"
-                        android:fontFamily="serif"
-                        android:text="@{favorite.category}"
-                        tools:text="Drama, Romance, Fantasy"
-                        app:layout_constraintTop_toBottomOf="@id/tv_release"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        />
-
-                    <TextView
-                        android:id="@+id/tv_overview"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_24dp"
-                        android:text="@string/text_overview"
-                        android:textSize="@dimen/text_24sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimary"
-                        app:layout_constraintTop_toBottomOf="@id/tv_category"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        />
-
-                    <TextView
-                        android:id="@+id/tv_overview_display"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/dimen_4dp"
-                        android:text="@{favorite.overview}"
-                        android:textSize="@dimen/text_20sp"
-                        android:textColor="@color/colorPrimary"
-                        tools:text="Test ini overview"
-                        app:layout_constraintTop_toBottomOf="@id/tv_overview"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:constraint_referenced_ids="iv_thumbnail,tv_title,tv_release,tv_category,tv_overview,tv_overview_display"
+                    />
 
                 <ProgressBar
                     android:id="@+id/progress_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="@{isLoading ? View.VISIBLE : View.GONE}"
-                    android:layout_centerInParent="true"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     />
 
-            </RelativeLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>
 
