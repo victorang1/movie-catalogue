@@ -16,6 +16,8 @@ class FilmDetailActivity : AppCompatActivity() {
     companion object {
         const val FILM_ID = "filmId"
         const val TYPE = "type"
+        val EXCELLENT_RATING = 70..100
+        val GOOD_RATING = 50..70
     }
 
     private lateinit var mBinding: ActivityFilmDetailBinding
@@ -45,8 +47,8 @@ class FilmDetailActivity : AppCompatActivity() {
             setProgressWithAnimation(film.score, 5)
             finishedStrokeColor = ContextCompat.getColor(
                 this@FilmDetailActivity, when (film.score) {
-                    in 70..100 -> R.color.colorProgressGreen
-                    in 50..70 -> R.color.colorProgressYellow
+                    in EXCELLENT_RATING -> R.color.colorProgressGreen
+                    in GOOD_RATING -> R.color.colorProgressYellow
                     else -> R.color.colorProgressRed
                 }
             )
