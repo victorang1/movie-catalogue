@@ -26,13 +26,13 @@ class TvShowFragment : Fragment(), FilmClickCallback {
     }
 
     private lateinit var mBinding: FragmentTvShowBinding
-    private lateinit var mAdapter: FilmAdapter
+    private val mAdapter: FilmAdapter by lazy { FilmAdapter(this) }
     private val mViewModel: TvShowViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mBinding = FragmentTvShowBinding.inflate(inflater, container, false)
         return mBinding.root
     }
@@ -53,7 +53,6 @@ class TvShowFragment : Fragment(), FilmClickCallback {
     }
 
     private fun initializeAdapter() {
-        mAdapter = FilmAdapter(this, arrayListOf())
         with(mBinding.rvShows) {
             this.layoutManager = LinearLayoutManager(activity)
             this.adapter = mAdapter

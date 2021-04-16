@@ -9,8 +9,10 @@ import com.example.moviecatalogue.R
 import com.example.moviecatalogue.databinding.FilmItemLayoutBinding
 import com.example.moviecatalogue.model.Film
 
-class FilmAdapter(val mCallback: FilmClickCallback, private val filmList: ArrayList<Film>) :
+class FilmAdapter(val mCallback: FilmClickCallback) :
     RecyclerView.Adapter<FilmAdapter.FilmViewHolder>() {
+
+    private val filmList: ArrayList<Film> = arrayListOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FilmViewHolder {
         val itemBinding =

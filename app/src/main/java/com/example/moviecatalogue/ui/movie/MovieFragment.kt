@@ -20,19 +20,14 @@ import java.lang.Exception
 
 class MovieFragment : Fragment(), FilmClickCallback {
 
-    companion object {
-        @JvmStatic
-        fun newInstance() = MovieFragment()
-    }
-
     private lateinit var mBinding: FragmentMovieBinding
-    private lateinit var mAdapter: FilmAdapter
+    private val mAdapter: FilmAdapter by lazy { FilmAdapter(this) }
     private val mViewModel: MovieViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         mBinding = FragmentMovieBinding.inflate(inflater, container, false)
         return mBinding.root
     }
@@ -53,7 +48,6 @@ class MovieFragment : Fragment(), FilmClickCallback {
     }
 
     private fun initializeAdapter() {
-        mAdapter = FilmAdapter(this, arrayListOf())
         with(mBinding.rvMovies) {
             this.layoutManager = LinearLayoutManager(activity)
             this.adapter = mAdapter
@@ -85,5 +79,10 @@ class MovieFragment : Fragment(), FilmClickCallback {
             mBinding.tvMessage.visibility = View.VISIBLE
             mBinding.tvMessage.text = e.message
         }
+    }
+
+    companion object {
+        @JvmStatic
+        fun newInstance() = MovieFragment()
     }
 }

@@ -5,6 +5,7 @@ import com.example.moviecatalogue.di.appComponent
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 
+@Suppress("unused")
 class BaseApplication : Application() {
 
     override fun onCreate() {

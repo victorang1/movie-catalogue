@@ -13,11 +13,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilmDetailActivity : AppCompatActivity() {
 
-    companion object {
-        const val FILM_ID = "filmId"
-        const val TYPE = "type"
-    }
-
     private lateinit var mBinding: ActivityFilmDetailBinding
     private val mViewModel: FilmDetailViewModel by viewModel()
 
@@ -52,5 +47,10 @@ class FilmDetailActivity : AppCompatActivity() {
         mViewModel.getLoadingStatus().observe(this, Observer { isLoading ->
             mBinding.isLoading = isLoading
         })
+    }
+
+    companion object {
+        const val FILM_ID = "filmId"
+        const val TYPE = "type"
     }
 }
