@@ -9,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.moviecatalogue.R
 import com.example.moviecatalogue.databinding.ActivityFilmDetailBinding
 import com.example.moviecatalogue.model.Film
+import com.example.moviecatalogue.utils.loadImage
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FilmDetailActivity : AppCompatActivity() {
@@ -36,10 +37,7 @@ class FilmDetailActivity : AppCompatActivity() {
 
     private fun renderSelectedFilm(film: Film) {
         mBinding.film = film
-        Glide.with(this)
-            .load(film.image)
-            .apply(RequestOptions.errorOf(R.drawable.ic_error_black))
-            .into(mBinding.ivThumbnail)
+        mBinding.ivThumbnail.loadImage(film.image)
         mViewModel.setLoading(false)
     }
 
