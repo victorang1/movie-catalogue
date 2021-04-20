@@ -25,7 +25,7 @@ class MovieServiceImpl(private val movieEndpoint: MovieEndpoint) : MovieService,
             ) {
                 if (response.isSuccessful) {
                     try {
-                        apiHandler.onSuccess(response.body()!!)
+                        response.body()?.let { apiHandler.onSuccess(it) }
                     } catch (e: Exception) {
                         apiHandler.onFailure(e)
                     }
@@ -54,7 +54,7 @@ class MovieServiceImpl(private val movieEndpoint: MovieEndpoint) : MovieService,
             ) {
                 if (response.isSuccessful) {
                     try {
-                        apiHandler.onSuccess(response.body()!!)
+                        response.body()?.let { apiHandler.onSuccess(it) }
                     } catch (e: Exception) {
                         apiHandler.onFailure(e)
                     }

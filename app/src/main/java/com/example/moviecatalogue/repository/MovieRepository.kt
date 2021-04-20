@@ -1,5 +1,6 @@
 package com.example.moviecatalogue.repository
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.moviecatalogue.BuildConfig.API_KEY
@@ -24,8 +25,8 @@ class MovieRepository(private val movieService: MovieService) : IMovieRepository
             }
 
             override fun onFailure(throwable: Throwable) {
+                throwable.printStackTrace()
                 EspressoIdlingResource.decrement()
-                throw throwable
             }
         })
         return movies
@@ -42,8 +43,8 @@ class MovieRepository(private val movieService: MovieService) : IMovieRepository
             }
 
             override fun onFailure(throwable: Throwable) {
+                throwable.printStackTrace()
                 EspressoIdlingResource.decrement()
-                throw throwable
             }
         })
         return movies

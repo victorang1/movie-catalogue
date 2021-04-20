@@ -25,8 +25,8 @@ class TvShowRepository(private val tvService: TvService) : ITvShowRepository {
             }
 
             override fun onFailure(throwable: Throwable) {
+                throwable.printStackTrace()
                 EspressoIdlingResource.decrement()
-                throw throwable
             }
         })
         return movies
@@ -38,12 +38,13 @@ class TvShowRepository(private val tvService: TvService) : ITvShowRepository {
         tvService.getTvDetails(BuildConfig.API_KEY, tvId, object : ApiHandler<TvDetailResponse> {
 
             override fun onSuccess(response: TvDetailResponse) {
-                EspressoIdlingResource.decrement()
                 tvs.value = ResponseHelper.convertToFilm(response)
+                EspressoIdlingResource.decrement()
             }
 
             override fun onFailure(throwable: Throwable) {
-                throw throwable
+                throwable.printStackTrace()
+                EspressoIdlingResource.decrement()
             }
         })
         return tvs
