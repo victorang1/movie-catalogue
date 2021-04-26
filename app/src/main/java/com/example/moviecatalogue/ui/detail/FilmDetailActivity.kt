@@ -31,7 +31,8 @@ class FilmDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_film_detail)
+        mBinding = ActivityFilmDetailBinding.inflate(layoutInflater)
+        setContentView(mBinding.root)
         selectedFilmId = intent.getIntExtra(FILM_ID, -1)
         selectedType = intent.getStringExtra(TYPE).toString()
         initializeObserver()

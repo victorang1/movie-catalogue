@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.databinding.DataBindingUtil
 import com.example.moviecatalogue.R
 import com.example.moviecatalogue.databinding.ActivityMainBinding
 import com.example.moviecatalogue.ui.favorite.FavoriteActivity
@@ -16,7 +15,8 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        mBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(mBinding.root)
         val homePagerAdapter = HomePagerAdapter(this, supportFragmentManager)
         mBinding.viewPager.adapter = homePagerAdapter
         mBinding.tabs.setupWithViewPager(mBinding.viewPager)

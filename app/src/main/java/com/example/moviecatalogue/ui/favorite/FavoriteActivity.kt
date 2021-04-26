@@ -34,7 +34,8 @@ class FavoriteActivity : AppCompatActivity(), FavoriteItemClickCallback,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_favorite)
+        mBinding = ActivityFavoriteBinding.inflate(layoutInflater)
+        setContentView(mBinding.root)
         initializeAdapter()
         initializeObserver()
         mViewModel.setSelectedFilmType(AppConstant.MOVIE)

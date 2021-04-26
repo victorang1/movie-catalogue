@@ -28,7 +28,8 @@ class FavoriteDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_favorite_detail)
+        mBinding = ActivityFavoriteDetailBinding.inflate(layoutInflater)
+        setContentView(mBinding.root)
         selectedFilmId = intent.getIntExtra(SELECTED_ID, -1)
         selectedType = intent.getStringExtra(SELECTED_TYPE).toString()
         initializeObserver()
